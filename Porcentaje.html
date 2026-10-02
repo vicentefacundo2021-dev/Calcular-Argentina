@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Calculadora de Porcentajes - Calcular Argentina</title>
+
+  <meta name="description" content="Calculadora de porcentajes online gratis. Calculá porcentajes, aumentos y descuentos de forma rápida y sencilla.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f6f8;
+      color: #222;
+    }
+
+    header {
+      background: white;
+      padding: 25px 20px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    header p {
+      color: #666;
+      margin-bottom: 0;
+    }
+
+    main {
+      max-width: 600px;
+      margin: auto;
+      padding: 25px 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin-top: 0;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin: 8px 0 15px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #222;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .resultado {
+      margin-top: 15px;
+      padding: 15px;
+      background: #f0f0f0;
+      border-radius: 10px;
+      font-weight: bold;
+      text-align: center;
+      min-height: 20px;
+    }
+
+    .volver {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #222;
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #777;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🧮 Calculadora de Porcentajes</h1>
+    <p>Calcular Argentina</p>
+  </header>
+
+  <main>
+
+    <div class="card">
+      <h2>¿Cuánto es un porcentaje de un número?</h2>
+
+      <input type="number" id="numero" placeholder="Número">
+
+      <input type="number" id="porcentaje" placeholder="Porcentaje (%)">
+
+      <button onclick="calcularPorcentaje()">
+        Calcular
+      </button>
+
+      <div class="resultado" id="resultado1"></div>
+    </div>
+
+
+    <div class="card">
+      <h2>¿Qué porcentaje representa un número de otro?</h2>
+
+      <input type="number" id="parte" placeholder="Número obtenido">
+
+      <input type="number" id="total" placeholder="Número total">
+
+      <button onclick="calcularQuePorcentaje()">
+        Calcular
+      </button>
+
+      <div class="resultado" id="resultado2"></div>
+    </div>
+
+
+    <div class="card">
+      <h2>Aumento o descuento porcentual</h2>
+
+      <input type="number" id="precio" placeholder="Precio">
+
+      <input type="number" id="porcentajeCambio" placeholder="Porcentaje (%)">
+
+      <button onclick="calcularCambio()">
+        Calcular
+      </button>
+
+      <div class="resultado" id="resultado3"></div>
+    </div>
+
+    <a class="volver" href="index.html">
+      ← Volver a Calcular Argentina
+    </a>
+
+  </main>
+
+  <footer>
+    © 2026 Calcular Argentina
+  </footer>
+
+
+  <script>
+
+    function calcularPorcentaje() {
+
+      let numero = parseFloat(document.getElementById("numero").value);
+      let porcentaje = parseFloat(document.getElementById("porcentaje").value);
+
+      if (isNaN(numero) || isNaN(porcentaje)) {
+        document.getElementById("resultado1").innerText =
+          "Completá los dos campos.";
+        return;
+      }
+
+      let resultado = numero * porcentaje / 100;
+
+      document.getElementById("resultado1").innerText =
+        porcentaje + "% de " + numero + " es " + resultado;
+    }
+
+
+    function calcularQuePorcentaje() {
+
+      let parte = parseFloat(document.getElementById("parte").value);
+      let total = parseFloat(document.getElementById("total").value);
+
+      if (isNaN(parte) || isNaN(total) || total === 0) {
+        document.getElementById("resultado2").innerText =
+          "Completá los campos correctamente.";
+        return;
+      }
+
+      let resultado = (parte / total) * 100;
+
+      document.getElementById("resultado2").innerText =
+        parte + " representa el " + resultado.toFixed(2) + "% de " + total;
+    }
+
+
+    function calcularCambio() {
+
+      let precio = parseFloat(document.getElementById("precio").value);
+      let porcentaje = parseFloat(document.getElementById("porcentajeCambio").value);
+
+      if (isNaN(precio) || isNaN(porcentaje)) {
+        document.getElementById("resultado3").innerText =
+          "Completá los dos campos.";
+        return;
+      }
+
+      let aumento = precio * porcentaje / 100;
+      let resultadoAumento = precio + aumento;
+      let resultadoDescuento = precio - aumento;
+
+      document.getElementById("resultado3").innerText =
+        "Con aumento: $" + resultadoAumento.toFixed(2) +
+        " | Con descuento: $" + resultadoDescuento.toFixed(2);
+    }
+
+  </script>
+
+</body>
+</html>
