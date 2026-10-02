@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Calculadora de IVA - Calcular Argentina</title>
+
+  <meta name="description" content="Calculadora de IVA online para Argentina. Calculá IVA y precio final de forma rápida y sencilla.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f6f8;
+      color: #222;
+    }
+
+    header {
+      background: white;
+      padding: 25px 20px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    header p {
+      color: #666;
+      margin-bottom: 0;
+    }
+
+    main {
+      max-width: 600px;
+      margin: auto;
+      padding: 25px 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 14px;
+      margin: 8px 0 15px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #222;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #444;
+    }
+
+    .resultado {
+      margin-top: 15px;
+      padding: 15px;
+      background: #f0f0f0;
+      border-radius: 10px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .volver {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #222;
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #777;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🧾 Calculadora de IVA</h1>
+    <p>Calcular Argentina</p>
+  </header>
+
+  <main>
+
+    <div class="card">
+      <h2>Precio sin IVA → Precio final</h2>
+
+      <label>Precio sin IVA</label>
+      <input
+        type="number"
+        id="precioSinIva"
+        placeholder="Ej: 10000"
+        oninput="calcularDesdeNeto()"
+      >
+
+      <label>Alícuota de IVA</label>
+      <select id="ivaNeto" onchange="calcularDesdeNeto()">
+        <option value="21">21%</option>
+        <option value="10.5">10,5%</option>
+        <option value="27">27%</option>
+      </select>
+
+      <button onclick="calcularDesdeNeto()">Calcular</button>
+
+      <div class="resultado" id="resultadoNeto">
+        Introducí un precio para calcular
+      </div>
+    </div>
+
+
+    <div class="card">
+      <h2>Precio final → Precio sin IVA</h2>
+
+      <label>Precio final con IVA</label>
+      <input
+        type="number"
+        id="precioConIva"
+        placeholder="Ej: 12100"
+        oninput="calcularDesdeFinal()"
+      >
+
+      <label>Alícuota de IVA</label>
+      <select id="ivaFinal" onchange="calcularDesdeFinal()">
+        <option value="21">21%</option>
+        <option value="10.5">10,5%</option>
+        <option value="27">27%</option>
+      </select>
+
+      <button onclick="calcularDesdeFinal()">Calcular</button>
+
+      <div class="resultado" id="resultadoFinal">
+        Introducí un precio para calcular
+      </div>
+    </div>
+
+
+    <a class="volver" href="dinero.html">
+      ← Volver a Calculadoras de Dinero
+    </a>
+
+  </main>
+
+  <footer>
+    © 2026 Calcular Argentina
+  </footer>
+
+
+  <script>
+
+    function formatearNumero(num) {
+      return Number(num.toFixed(2)).toLocaleString("es-AR");
+    }
+
+
+    function calcularDesdeNeto() {
+
+      let precio = parseFloat(
+        document.getElementById("precioSinIva").value
+      );
+
+      let iva = parseFloat(
+        document.getElementById("ivaNeto").value
+      );
+
+      if (isNaN(precio)) {
+        document.getElementById("resultadoNeto").innerText =
+          "Introducí un precio.";
+        return;
+      }
+
+      let importeIva = precio * iva / 100;
+      let precioFinal = precio + importeIva;
+
+      document.getElementById("resultadoNeto").innerHTML =
+        "IVA: $" + formatearNumero(importeIva) +
+        "<br>Precio final: $" + formatearNumero(precioFinal);
+    }
+
+
+    function calcularDesdeFinal() {
+
+      let precioFinal = parseFloat(
+        document.getElementById("precioConIva").value
+      );
+
+      let iva = parseFloat(
+        document.getElementById("ivaFinal").value
+      );
+
+      if (isNaN(precioFinal)) {
+        document.getElementById("resultadoFinal").innerText =
+          "Introducí un precio.";
+        return;
+      }
+
+      let precioSinIva = precioFinal / (1 + iva / 100);
+      let importeIva = precioFinal - precioSinIva;
+
+      document.getElementById("resultadoFinal").innerHTML =
+        "Precio sin IVA: $" + formatearNumero(precioSinIva) +
+        "<br>IVA incluido: $" + formatearNumero(importeIva);
+    }
+
+  </script>
+
+</body>
+</html>
