@@ -3,7 +3,99 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calcular Argentina - Calculadoras Online</title>
+
+  <title>Calcular Argentina - Calculadoras Online Gratis</title>
+
+  <meta name="description" content="Calculadoras online gratis para Argentina. Dinero, salud, auto, hogar, eventos, fechas, conversiones y construcción.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f6f8;
+      color: #222;
+    }
+
+    header {
+      background: #ffffff;
+      padding: 25px 20px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 32px;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      color: #666;
+      font-size: 17px;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .search {
+      margin-bottom: 30px;
+    }
+
+    .search input {
+      width: 100%;
+      padding: 16px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      font-size: 16px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+
+    .category {
+      background: white;
+      border-radius: 15px;
+      padding: 25px 15px;
+      text-align: center;
+      border: 1px solid #e1e1e1;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .category:hover {
+      transform: translateY(-3px);
+    }
+
+    .emoji {
+      display: block;
+      font-size: 35px;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #777;
+      font-size: 14px;
+    }
+  </style>
 </head>
 
 <body>
@@ -14,11 +106,70 @@
   </header>
 
   <main>
-    <h2>Calculadoras</h2>
 
-    <p>Próximamente vas a encontrar nuestras calculadoras.</p>
+    <div class="search">
+      <input
+        type="text"
+        placeholder="🔎 ¿Qué querés calcular?"
+      >
+    </div>
+
+    <h2>Elegí una categoría</h2>
+
+    <div class="categories">
+
+      <div class="category">
+        <span class="emoji">🧮</span>
+        Matemática y porcentajes
+      </div>
+
+      <div class="category">
+        <span class="emoji">💰</span>
+        Dinero
+      </div>
+
+      <div class="category">
+        <span class="emoji">❤️</span>
+        Salud y cuerpo
+      </div>
+
+      <div class="category">
+        <span class="emoji">🚗</span>
+        Auto
+      </div>
+
+      <div class="category">
+        <span class="emoji">🏠</span>
+        Hogar
+      </div>
+
+      <div class="category">
+        <span class="emoji">🎉</span>
+        Eventos
+      </div>
+
+      <div class="category">
+        <span class="emoji">📅</span>
+        Fechas y tiempo
+      </div>
+
+      <div class="category">
+        <span class="emoji">📏</span>
+        Conversiones
+      </div>
+
+      <div class="category">
+        <span class="emoji">🧱</span>
+        Construcción
+      </div>
+
+    </div>
 
   </main>
+
+  <footer>
+    © 2026 Calcular Argentina
+  </footer>
 
 </body>
 </html>
