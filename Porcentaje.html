@@ -74,6 +74,11 @@
       color: white;
       font-size: 16px;
       cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #444;
     }
 
     .resultado {
@@ -114,46 +119,26 @@
 
     <div class="card">
       <h2>¿Cuánto es un porcentaje de un número?</h2>
-
-      <input type="number" id="numero" placeholder="Número">
-
-      <input type="number" id="porcentaje" placeholder="Porcentaje (%)">
-
-      <button onclick="calcularPorcentaje()">
-        Calcular
-      </button>
-
-      <div class="resultado" id="resultado1"></div>
+      <input type="number" id="numero" placeholder="Número" oninput="calcularPorcentaje()">
+      <input type="number" id="porcentaje" placeholder="Porcentaje (%)" oninput="calcularPorcentaje()">
+      <button onclick="calcularPorcentaje()">Calcular</button>
+      <div class="resultado" id="resultado1">Introducí los datos para calcular</div>
     </div>
-
 
     <div class="card">
       <h2>¿Qué porcentaje representa un número de otro?</h2>
-
-      <input type="number" id="parte" placeholder="Número obtenido">
-
-      <input type="number" id="total" placeholder="Número total">
-
-      <button onclick="calcularQuePorcentaje()">
-        Calcular
-      </button>
-
-      <div class="resultado" id="resultado2"></div>
+      <input type="number" id="parte" placeholder="Número obtenido" oninput="calcularQuePorcentaje()">
+      <input type="number" id="total" placeholder="Número total" oninput="calcularQuePorcentaje()">
+      <button onclick="calcularQuePorcentaje()">Calcular</button>
+      <div class="resultado" id="resultado2">Introducí los datos para calcular</div>
     </div>
-
 
     <div class="card">
       <h2>Aumento o descuento porcentual</h2>
-
-      <input type="number" id="precio" placeholder="Precio">
-
-      <input type="number" id="porcentajeCambio" placeholder="Porcentaje (%)">
-
-      <button onclick="calcularCambio()">
-        Calcular
-      </button>
-
-      <div class="resultado" id="resultado3"></div>
+      <input type="number" id="precio" placeholder="Precio" oninput="calcularCambio()">
+      <input type="number" id="porcentajeCambio" placeholder="Porcentaje (%)" oninput="calcularCambio()">
+      <button onclick="calcularCambio()">Calcular</button>
+      <div class="resultado" id="resultado3">Introducí los datos para calcular</div>
     </div>
 
     <a class="volver" href="index.html">
@@ -166,65 +151,62 @@
     © 2026 Calcular Argentina
   </footer>
 
-
   <script>
+    // Función auxiliar para formatear los números y evitar decimales infinitos
+    function formatearNumero(num) {
+      return Number(num.toFixed(2)).toString();
+    }
 
     function calcularPorcentaje() {
-
       let numero = parseFloat(document.getElementById("numero").value);
       let porcentaje = parseFloat(document.getElementById("porcentaje").value);
 
       if (isNaN(numero) || isNaN(porcentaje)) {
-        document.getElementById("resultado1").innerText =
-          "Completá los dos campos.";
+        document.getElementById("resultado1").innerText = "Completá los dos campos.";
         return;
       }
 
-      let resultado = numero * porcentaje / 100;
-
-      document.getElementById("resultado1").innerText =
-        porcentaje + "% de " + numero + " es " + resultado;
+      let resultado = (numero * porcentaje) / 100;
+      document.getElementById("resultado1").innerText = 
+        porcentaje + "% de " + numero + " es " + formatearNumero(resultado);
     }
 
-
     function calcularQuePorcentaje() {
-
       let parte = parseFloat(document.getElementById("parte").value);
       let total = parseFloat(document.getElementById("total").value);
 
-      if (isNaN(parte) || isNaN(total) || total === 0) {
-        document.getElementById("resultado2").innerText =
-          "Completá los campos correctamente.";
+      if (isNaN(parte) || isNaN(total)) {
+        document.getElementById("resultado2").innerText = "Completá los campos.";
+        return;
+      }
+
+      if (total === 0) {
+        document.getElementById("resultado2").innerText = "El número total no puede ser 0.";
         return;
       }
 
       let resultado = (parte / total) * 100;
-
-      document.getElementById("resultado2").innerText =
-        parte + " representa el " + resultado.toFixed(2) + "% de " + total;
+      document.getElementById("resultado2").innerText = 
+        parte + " representa el " + formatearNumero(resultado) + "% de " + total;
     }
 
-
     function calcularCambio() {
-
       let precio = parseFloat(document.getElementById("precio").value);
       let porcentaje = parseFloat(document.getElementById("porcentajeCambio").value);
 
       if (isNaN(precio) || isNaN(porcentaje)) {
-        document.getElementById("resultado3").innerText =
-          "Completá los dos campos.";
+        document.getElementById("resultado3").innerText = "Completá los dos campos.";
         return;
       }
 
-      let aumento = precio * porcentaje / 100;
+      let aumento = (precio * porcentaje) / 100;
       let resultadoAumento = precio + aumento;
       let resultadoDescuento = precio - aumento;
 
-      document.getElementById("resultado3").innerText =
-        "Con aumento: $" + resultadoAumento.toFixed(2) +
-        " | Con descuento: $" + resultadoDescuento.toFixed(2);
+      document.getElementById("resultado3").innerText = 
+        "Con aumento: $" + formatearNumero(resultadoAumento) + 
+        " | Con descuento: $" + formatearNumero(resultadoDescuento);
     }
-
   </script>
 
 </body>
