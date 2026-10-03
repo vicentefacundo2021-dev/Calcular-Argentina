@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Calculadora de Aumentos y Descuentos - Calcular Argentina</title>
+
+  <meta name="description" content="Calculadora online de aumentos y descuentos. Calculá fácilmente cuánto queda un precio después de aplicar un porcentaje.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f6f8;
+      color: #222;
+    }
+
+    header {
+      background: white;
+      padding: 25px 20px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    header p {
+      color: #666;
+      margin-bottom: 0;
+    }
+
+    main {
+      max-width: 600px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .calculadora {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      border: 1px solid #e1e1e1;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 7px;
+      font-weight: bold;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 13px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 20px;
+      background: #222;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .resultado {
+      margin-top: 20px;
+      padding: 18px;
+      background: #f1f2f4;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      display: none;
+    }
+
+    .volver {
+      display: block;
+      text-align: center;
+      margin-top: 25px;
+      color: #222;
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #777;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>📈 Aumentos y descuentos</h1>
+    <p>Calcular Argentina</p>
+  </header>
+
+  <main>
+
+    <div class="calculadora">
+
+      <label for="precio">Precio</label>
+      <input type="number" id="precio" placeholder="Ej: 100000">
+
+      <label for="tipo">¿Qué querés calcular?</label>
+      <select id="tipo">
+        <option value="aumento">Aumento</option>
+        <option value="descuento">Descuento</option>
+      </select>
+
+      <label for="porcentaje">Porcentaje</label>
+      <input type="number" id="porcentaje" placeholder="Ej: 20">
+
+      <button onclick="calcular()">Calcular</button>
+
+      <div class="resultado" id="resultado"></div>
+
+    </div>
+
+    <a class="volver" href="dinero.html">
+      ← Volver a Calculadoras de Dinero
+    </a>
+
+  </main>
+
+  <footer>
+    © 2026 Calcular Argentina
+  </footer>
+
+  <script>
+    function calcular() {
+
+      const precio = parseFloat(document.getElementById("precio").value);
+      const porcentaje = parseFloat(document.getElementById("porcentaje").value);
+      const tipo = document.getElementById("tipo").value;
+      const resultado = document.getElementById("resultado");
+
+      if (isNaN(precio) || isNaN(porcentaje) || precio < 0 || porcentaje < 0) {
+        resultado.style.display = "block";
+        resultado.innerHTML = "Ingresá valores válidos.";
+        return;
+      }
+
+      let monto;
+      let precioFinal;
+
+      if (tipo === "aumento") {
+        monto = precio * porcentaje / 100;
+        precioFinal = precio + monto;
+
+        resultado.innerHTML =
+          "Aumento: $" + monto.toLocaleString("es-AR", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }) +
+          "<br><br>Precio final: $" +
+          precioFinal.toLocaleString("es-AR", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          });
+
+      } else {
+        monto = precio * porcentaje / 100;
+        precioFinal = precio - monto;
+
+        resultado.innerHTML =
+          "Descuento: $" + monto.toLocaleString("es-AR", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }) +
+          "<br><br>Precio final: $" +
+          precioFinal.toLocaleString("es-AR", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          });
+      }
+
+      resultado.style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
