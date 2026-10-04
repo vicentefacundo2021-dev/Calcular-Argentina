@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Ventas y Ganancias - Calcular Argentina</title>
+
+  <meta name="description" content="Compará las ventas de tu negocio entre días y analizá si vendiste más o menos.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f6f8;
+      color: #222;
+    }
+
+    header {
+      text-align: center;
+      padding: 25px 15px 15px;
+    }
+
+    header img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 15px;
+    }
+
+    h1 {
+      margin: 10px 0 5px;
+      font-size: 28px;
+    }
+
+    header p {
+      margin: 0;
+      color: #666;
+    }
+
+    .volver {
+      display: block;
+      max-width: 900px;
+      margin: 10px auto 20px;
+      padding: 0 20px;
+      color: #333;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .contenedor {
+      max-width: 900px;
+      margin: auto;
+      padding: 0 15px 30px;
+    }
+
+    .tarjeta {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 21px;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px;
+      margin-top: 18px;
+      border: none;
+      border-radius: 8px;
+      background: #222;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .tabla-contenedor {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      min-width: 650px;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+    }
+
+    th {
+      background: #f1f2f4;
+    }
+
+    .eliminar {
+      background: #c62828;
+      padding: 8px 10px;
+      margin: 0;
+      width: auto;
+      font-size: 13px;
+    }
+
+    .mas {
+      color: #16803c;
+      font-weight: bold;
+    }
+
+    .menos {
+      color: #c62828;
+      font-weight: bold;
+    }
+
+    .igual {
+      color: #777;
+      font-weight: bold;
+    }
+
+    .resumen {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .resultado {
+      background: #f5f6f8;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .resultado strong {
+      display: block;
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 5px;
+    }
+
+    .resultado span {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .vacio {
+      text-align: center;
+      color: #777;
+      padding: 15px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #777;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .resumen {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <img src="descarga.jpeg" alt="Calcular Argentina">
+    <h1>Calcular Argentina</h1>
+    <p>Calculadoras online gratis</p>
+  </header>
+
+  <a class="volver" href="negocios.html">← Volver a Negocios</a>
+
+  <div class="contenedor">
+
+    <div class="tarjeta">
+
+      <h2>📈 Registrar ventas del día</h2>
+
+      <label for="fecha">Fecha</label>
+      <input type="
