@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Calculadora de Embarazo y Fecha de Parto - Calcular Argentina</title>
+
+  <meta name="description" content="Calculadora de embarazo online gratis. Calculá tus semanas de gestación, trimestre actual y la fecha probable de parto de forma fácil.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f6f8;
+      color: #222;
+    }
+
+    header {
+      background: white;
+      padding: 25px 20px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    header p {
+      color: #666;
+      margin-bottom: 0;
+    }
+
+    main {
+      max-width: 600px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .calculadora {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      border: 1px solid #e1e1e1;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 7px;
+      font-weight: bold;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 13px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 20px;
+      background: #222;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .resultado {
+      margin-top: 20px;
+      padding: 18px;
+      background: #f1f2f4;
+      border-radius: 10px;
+      font-size: 16px;
+      line-height: 1.6;
+      display: none;
+    }
+
+    .resultado h3 {
+      margin-top: 0;
+      text-align: center;
+      color: #222;
+    }
+
+    .dato-importante {
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      margin: 10px 0;
+      color: #d63384;
+    }
+
+    .volver {
+      display: block;
+      text-align: center;
+      margin-top: 25px;
+      color: #222;
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #777;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🤰 Calculadora de Embarazo</h1>
+    <p>Calcular Argentina</p>
+  </header>
+
+  <main>
+
+    <div class="calculadora">
+
+      <label for="fum">Fecha de tu última menstruación (FUM)</label>
+      <input type="date" id="fum">
+
+      <button onclick="calcularEmbarazo()">Calcular semanas y parto</button>
+
+      <div class="resultado" id="resultado"></div>
+
+    </div>
+
+    <a class="volver" href="index.html">
+      ← Volver al Inicio
+    </a>
+
+  </main>
+
+  <footer>
+    © 2026 Calcular Argentina
+  </footer>
+
+  <script>
+    function calcularEmbarazo() {
+      const fumInput = document.getElementById("fum").value;
+      const resultadoDiv = document.getElementById("resultado");
+
+      if (!fumInput) {
+        resultadoDiv.style.display = "block";
+        resultadoDiv.innerHTML = "Por favor, ingresá una fecha válida.";
+        return;
+      }
+
+      const fum = new Date(fumInput + "T00:00:00");
+      const hoy = new Date();
+      
+      // Calcular diferencia en milisegundos y convertir a días
+      const diferenciaTiempo = hoy - fum;
+      const diasTranscurridos = Math.floor(diferenciaTiempo / (1000 * 60 * 60 * 24));
+
+      if (diasTranscurridos < 0) {
+        resultadoDiv.style.display = "block";
+        resultadoDiv.innerHTML = "La fecha no puede ser en el futuro.";
+        return;
+      }
+
+      if (diasTranscurridos > 294) { // Más de 42 semanas
+        resultadoDiv.style.display = "block";
+        resultadoDiv.innerHTML = "Según la fecha ingresada, el embarazo ya habría llegado a término.";
+        return;
+      }
+
+      // 1. Fecha Probable de Parto (FUM + 280 días)
+      const fpp = new Date(fum.getTime());
+      fpp.setDate(fpp.getDate() + 280);
+      
+      const opcionesFecha = { year: 'numeric', month: 'long', day: 'numeric' };
+      const fppFormateada = fpp.toLocaleDateString('es-AR', opcionesFecha);
+
+      // 2. Semanas y días actuales
+      const semanas = Math.floor(diasTranscurridos / 7);
+      const diasRestantes = diasTranscurridos % 7;
+
+      // 3. Determinar Trimestre
+      let trimestre = "";
+      if (semanas < 14) trimestre = "Primer Trimestre";
+      else if (semanas < 28) trimestre = "Segundo Trimestre";
+      else trimestre = "Tercer Trimestre";
+
+      // 4. Fruta de comparación según la semana
+      let fruta = "una semilla pequeña";
+      if (semanas >= 4 && semanas < 7) fruta = "una lenteja 🌱";
+      else if (semanas >= 7 && semanas < 10) status = fruta = "un arándano 🫐";
+      else if (semanas >= 10 && semanas < 14) fruta = "una ciruela 🫒";
+      else if (semanas >= 14 && semanas < 18) fruta = "un limón 🍋";
+      else if (semanas >= 18 && semanas < 22) fruta = "un tomate grande 🍅";
+      else if (semanas >= 22 && semanas < 27) fruta = "una papaya / mamón 🥭";
+      else if (semanas >= 27 && semanas < 32) fruta = "una coliflor 🥦";
+      else if (semanas >= 32 && semanas < 36) fruta = "una piña / ananá 🍍";
+      else if (semanas >= 36) fruta = "una sandía pequeña 🍉";
+
+      // Renderizar el resultado en HTML
+      resultadoDiv.innerHTML = `
+        <h3>📊 Tus resultados</h3>
+        <p><strong>Tiempo actual de gestación:</strong></p>
+        <div class="dato-important">${semanas} semanas y ${diasRestantes} días</div>
+        <p><strong>Período:</strong> ${trimestre}</p>
+        <p><strong>Tamaño aproximado del bebé:</strong> ¡Tiene el tamaño de ${fruta}!</p>
+        <hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;">
+        <p>📅 <strong>Fecha Probable de Parto (FPP):</strong></p>
+        <div class="dato-importante" style="color: #198754;">${fppFormateada}</div>
+      `;
+      
+      resultadoDiv.style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
