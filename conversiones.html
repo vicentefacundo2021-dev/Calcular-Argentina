@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Conversor de Unidades Online - Calcular Argentina</title>
+
+  <meta name="description" content="Conversor de unidades gratis para Argentina. Convertí fácilmente pulgadas a centímetros, pies a metros y libras a kilos online.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f6f8;
+      color: #222;
+    }
+
+    header {
+      background: white;
+      padding: 25px 20px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    header p {
+      color: #666;
+      margin-bottom: 0;
+    }
+
+    main {
+      max-width: 600px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .calculadora {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      border: 1px solid #e1e1e1;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 7px;
+      font-weight: bold;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 13px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 20px;
+      background: #222;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .resultado {
+      margin-top: 20px;
+      padding: 18px;
+      background: #f1f2f4;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      color: #0d6efd;
+      display: none;
+    }
+
+    .volver {
+      display: block;
+      text-align: center;
+      margin-top: 25px;
+      color: #222;
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #777;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>📏 Conversor de Unidades</h1>
+    <p>Calcular Argentina</p>
+  </header>
+
+  <main>
+
+    <div class="calculadora">
+
+      <label for="valor">Ingresá el valor a convertir</label>
+      <input type="number" id="valor" placeholder="Ej: 10" step="any">
+
+      <label for="tipoConversion">¿Qué conversión querés hacer?</label>
+      <select id="tipoConversion">
+        <option value="inchToCm">Pulgadas (in) ➔ Centímetros (cm)</option>
+        <option value="cmToInch">Centímetros (cm) ➔ Pulgadas (in)</option>
+        <option value="ftToM">Pies (ft) ➔ Metros (m)</option>
+        <option value="mToFt">Metros (m) ➔ Pies (ft)</option>
+        <option value="lbToKg">Libras (lb) ➔ Kilos (kg)</option>
+        <option value="kgToLb">Kilos (kg) ➔ Libras (lb)</option>
+      </select>
+
+      <button onclick="convertir()">Convertir</button>
+
+      <div class="resultado" id="resultado"></div>
+
+    </div>
+
+    <a class="volver" href="index.html">
+      ← Volver al Inicio
+    </a>
+
+  </main>
+
+  <footer>
+    © 2026 Calcular Argentina
+  </footer>
+
+  <script>
+    function convertir() {
+      const valor = parseFloat(document.getElementById("valor").value);
+      const tipo = document.getElementById("tipoConversion").value;
+      const resultadoDiv = document.getElementById("resultado");
+
+      if (isNaN(valor)) {
+        resultadoDiv.style.display = "block";
+        resultadoDiv.innerHTML = "Por favor, ingresá un número válido.";
+        return;
+      }
+
+      let final = 0;
+      let texto = "";
+
+      switch (tipo) {
+        case "inchToCm":
+          final = valor * 2.54;
+          texto = valor + " in = " + final.toLocaleString("es-AR", { maximumFractionDigits: 3 }) + " cm";
+          break;
+        case "cmToInch":
+          final = valor / 2.54;
+          texto = valor + " cm = " + final.toLocaleString("es-AR", { maximumFractionDigits: 3 }) + " in";
+          break;
+        case "ftToM":
+          final = valor * 0.3048;
+          texto = valor + " ft = " + final.toLocaleString("es-AR", { maximumFractionDigits: 3 }) + " m";
+          break;
+        case "mToFt":
+          final = valor / 0.3048;
+          texto = valor + " m = " + final.toLocaleString("es-AR", { maximumFractionDigits: 3 }) + " ft";
+          break;
+        case "lbToKg":
+          final = valor * 0.453592;
+          texto = valor + " lb = " + final.toLocaleString("es-AR", { maximumFractionDigits: 3 }) + " kg";
+          break;
+        case "kgToLb":
+          final = valor / 0.453592;
+          texto = valor + " kg = " + final.toLocaleString("es-AR", { maximumFractionDigits: 3 }) + " lb";
+          break;
+      }
+
+      resultadoDiv.innerHTML = texto;
+      resultadoDiv.style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
