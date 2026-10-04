@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Calculadoras para Negocios - Calcular Argentina</title>
+  <title>Negocios - Calcular Argentina</title>
 
-  <meta name="description" content="Herramientas y calculadoras para negocios: ganancias, precios de venta, mercadería, gastos, punto de equilibrio, IVA y comisiones.">
+  <meta name="description" content="Calculadoras para negocios: ganancias, precios, mercadería, gastos y más.">
 
   <style>
     * {
@@ -21,99 +21,105 @@
     }
 
     header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 15px;
-      background: #ffffff;
-      padding: 25px 20px;
-      border-bottom: 1px solid #ddd;
+      text-align: center;
+      padding: 25px 15px 15px;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 30px;
-      line-height: 1.1;
+    header img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 15px;
+    }
+
+    h1 {
+      margin: 10px 0 5px;
+      font-size: 28px;
     }
 
     header p {
-      margin: 5px 0 0;
+      margin: 0;
       color: #666;
-      font-size: 16px;
-    }
-
-    main {
-      max-width: 1000px;
-      margin: auto;
-      padding: 30px 20px;
     }
 
     .volver {
-      display: inline-block;
-      margin-bottom: 25px;
-      text-decoration: none;
+      display: block;
+      max-width: 900px;
+      margin: 10px auto 20px;
+      padding: 0 20px;
       color: #333;
+      text-decoration: none;
       font-weight: bold;
     }
 
-    h2 {
-      text-align: center;
-      margin: 10px 0 10px;
+    .contenedor {
+      max-width: 900px;
+      margin: auto;
+      padding: 0 15px 30px;
     }
 
     .intro {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
       text-align: center;
-      color: #666;
-      margin-bottom: 30px;
     }
 
-    .herramientas {
+    .intro h2 {
+      margin-top: 0;
+    }
+
+    .intro p {
+      color: #666;
+      margin-bottom: 0;
+    }
+
+    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 15px;
     }
 
-    .herramienta {
+    .card {
+      display: block;
       background: white;
+      padding: 20px;
       border-radius: 15px;
-      padding: 22px 15px;
-      text-align: center;
-      border: 1px solid #e1e1e1;
       text-decoration: none;
       color: #222;
-      display: block;
-      transition: 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      transition: transform 0.15s;
     }
 
-    .herramienta:hover {
-      transform: translateY(-3px);
+    .card:hover {
+      transform: translateY(-2px);
     }
 
-    .emoji {
-      display: block;
-      font-size: 38px;
-      margin-bottom: 10px;
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 19px;
     }
 
-    .titulo {
-      display: block;
-      font-size: 17px;
-      font-weight: bold;
-      margin-bottom: 7px;
-    }
-
-    .descripcion {
-      display: block;
-      font-size: 12px;
-      color: #777;
+    .card p {
+      margin: 0;
+      color: #666;
+      font-size: 14px;
       line-height: 1.4;
     }
 
     footer {
       text-align: center;
-      padding: 30px 20px;
+      padding: 25px;
       color: #777;
       font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -121,101 +127,67 @@
 <body>
 
   <header>
-    <img src="descarga.jpeg" alt="Mascota Calcular Argentina" style="height: 55px; width: auto; border-radius: 8px;">
-
-    <div style="text-align: left;">
-      <h1>Calcular Argentina</h1>
-      <p>Calculadoras online gratis</p>
-    </div>
+    <img src="descarga.jpeg" alt="Calcular Argentina">
+    <h1>Calcular Argentina</h1>
+    <p>Calculadoras online gratis</p>
   </header>
 
-  <main>
+  <a class="volver" href="index.html">← Volver a categorías</a>
 
-    <a href="index.html" class="volver">← Volver a categorías</a>
+  <div class="contenedor">
 
-    <h2>💼 Herramientas para negocios</h2>
+    <div class="intro">
+      <h2>💼 Herramientas para negocios</h2>
+      <p>
+        Calculá ganancias, precios, gastos, mercadería y otros datos importantes para tu negocio.
+      </p>
+    </div>
 
-    <p class="intro">
-      Calculá ganancias, precios, gastos, mercadería y otros datos importantes para tu negocio.
-    </p>
+    <div class="grid">
 
-    <div class="herramientas">
-
-      <!-- YA FUNCIONA -->
-      <a href="ganancia.html" class="herramienta">
-        <span class="emoji">💰</span>
-        <span class="titulo">Ganancia y margen</span>
-        <span class="descripcion">
-          Calculá cuánto ganás por cada producto y cuál es tu margen de ganancia.
-        </span>
+      <a class="card" href="ganancia.html">
+        <h3>💰 Ganancia y margen</h3>
+        <p>Calculá cuánto ganás y cuál es tu margen de ganancia.</p>
       </a>
 
-      <!-- YA FUNCIONA -->
-      <a href="precio.html" class="herramienta">
-        <span class="emoji">🏷️</span>
-        <span class="titulo">Precio de venta</span>
-        <span class="descripcion">
-          Calculá a cuánto vender un producto según su costo y la ganancia que buscás.
-        </span>
+      <a class="card" href="precio.html">
+        <h3>🏷️ Precio de venta</h3>
+        <p>Calculá a qué precio vender según tu costo y ganancia deseada.</p>
       </a>
 
-      <!-- TODAVÍA NO CREADA -->
-      <a href="#" class="herramienta">
-        <span class="emoji">📦</span>
-        <span class="titulo">Mercadería</span>
-        <span class="descripcion">
-          Agregá varios productos y calculá inversión, ventas posibles y ganancia total.
-        </span>
+      <a class="card" href="mercaderia.html">
+        <h3>📦 Mercadería</h3>
+        <p>Registrá productos, cantidades, costos, ventas e inversión.</p>
       </a>
 
-      <!-- TODAVÍA NO CREADA -->
-      <a href="#" class="herramienta">
-        <span class="emoji">💸</span>
-        <span class="titulo">Gastos del negocio</span>
-        <span class="descripcion">
-          Sumá tus gastos mensuales y conocé cuánto necesitás generar para cubrirlos.
-        </span>
+      <a class="card" href="gastos.html">
+        <h3>💸 Gastos del negocio</h3>
+        <p>Registrá tus gastos y calculá cuánto gastás en total.</p>
       </a>
 
-      <!-- TODAVÍA NO CREADA -->
-      <a href="#" class="herramienta">
-        <span class="emoji">📊</span>
-        <span class="titulo">Punto de equilibrio</span>
-        <span class="descripcion">
-          Calculá cuánto tenés que vender para cubrir todos tus gastos.
-        </span>
+      <a class="card" href="#">
+        <h3>📊 Punto de equilibrio</h3>
+        <p>Calculá cuánto necesitás vender para cubrir tus gastos.</p>
       </a>
 
-      <!-- TODAVÍA NO CREADA -->
-      <a href="#" class="herramienta">
-        <span class="emoji">📈</span>
-        <span class="titulo">Ventas y ganancias</span>
-        <span class="descripcion">
-          Estimá tus ingresos y ganancias según la cantidad de productos vendidos.
-        </span>
+      <a class="card" href="#">
+        <h3>📈 Ventas y ganancias</h3>
+        <p>Analizá tus ventas y ganancias del negocio.</p>
       </a>
 
-      <!-- TODAVÍA NO CREADA -->
-      <a href="#" class="herramienta">
-        <span class="emoji">🧾</span>
-        <span class="titulo">IVA</span>
-        <span class="descripcion">
-          Calculá IVA incluido, IVA discriminado y precio final.
-        </span>
+      <a class="card" href="#">
+        <h3>🧾 IVA</h3>
+        <p>Calculá IVA incluido, IVA neto y otros valores.</p>
       </a>
 
-      <!-- TODAVÍA NO CREADA -->
-      <a href="#" class="herramienta">
-        <span class="emoji">💳</span>
-        <span class="titulo">Comisiones</span>
-        <span class="descripcion">
-          Calculá cuánto te queda después de las comisiones de medios de pago.
-        </span>
+      <a class="card" href="#">
+        <h3>💳 Comisiones</h3>
+        <p>Calculá comisiones de tarjetas, plataformas y ventas.</p>
       </a>
 
     </div>
 
-  </main>
+  </div>
 
   <footer>
     © 2026 Calcular Argentina
