@@ -21,19 +21,23 @@
     }
 
     header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
       background: #ffffff;
       padding: 25px 20px;
-      text-align: center;
       border-bottom: 1px solid #ddd;
     }
 
     header h1 {
       margin: 0;
       font-size: 32px;
+      line-height: 1.1;
     }
 
     header p {
-      margin: 8px 0 0;
+      margin: 4px 0 0;
       color: #666;
       font-size: 17px;
     }
@@ -63,7 +67,6 @@
 
     .categories {
       display: grid;
-      /* VOLVEMOS A LOS 150PX ORIGINALES PARA QUE QUEDEN UNA AL LADO DE LA OTRA */
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 15px;
     }
@@ -117,8 +120,13 @@
 <body>
 
   <header>
-    <h1>🇦🇷 Calcular Argentina</h1>
-    <p>Calculadoras online gratis</p>
+    <!-- LOGO CONECTADO A TU IMAGEN SUBIDA -->
+    <img src="descarga.jpeg" alt="Mascota Calcular Argentina" style="height: 55px; width: auto; border-radius: 8px;">
+    
+    <div style="text-align: left;">
+      <h1>Calcular Argentina</h1>
+      <p>Calculadoras online gratis</p>
+    </div>
   </header>
 
   <main>
