@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Calculadoras para Negocios - Calcular Argentina</title>
+
+  <meta name="description" content="Herramientas y calculadoras para negocios: ganancias, precios de venta, mercadería, gastos, punto de equilibrio, IVA y comisiones.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f6f8;
+      color: #222;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      background: #ffffff;
+      padding: 25px 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 30px;
+      line-height: 1.1;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      color: #666;
+      font-size: 16px;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .volver {
+      display: inline-block;
+      margin-bottom: 25px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    h2 {
+      text-align: center;
+      margin: 10px 0 10px;
+    }
+
+    .intro {
+      text-align: center;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    .herramientas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+    }
+
+    .herramienta {
+      background: white;
+      border-radius: 15px;
+      padding: 22px 15px;
+      text-align: center;
+      border: 1px solid #e1e1e1;
+      text-decoration: none;
+      color: #222;
+      transition: 0.2s;
+    }
+
+    .herramienta:hover {
+      transform: translateY(-3px);
+    }
+
+    .emoji {
+      display: block;
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+
+    .titulo {
+      display: block;
+      font-size: 17px;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    .descripcion {
+      display: block;
+      font-size: 12px;
+      color: #777;
+      line-height: 1.4;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #777;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <img src="descarga.jpeg" alt="Mascota Calcular Argentina" style="height: 55px; width: auto; border-radius: 8px;">
+
+    <div style="text-align: left;">
+      <h1>Calcular Argentina</h1>
+      <p>Calculadoras online gratis</p>
+    </div>
+  </header>
+
+  <main>
+
+    <a href="index.html" class="volver">← Volver a categorías</a>
+
+    <h2>💼 Herramientas para negocios</h2>
+
+    <p class="intro">
+      Calculá ganancias, precios, gastos, mercadería y otros datos importantes para tu negocio.
+    </p>
+
+    <div class="herramientas">
+
+      <a href="#ganancia" class="herramienta">
+        <span class="emoji">💰</span>
+        <span class="titulo">Ganancia y margen</span>
+        <span class="descripcion">
+          Calculá cuánto ganás por cada producto y cuál es tu margen de ganancia.
+        </span>
+      </a>
+
+      <a href="#precio" class="herramienta">
+        <span class="emoji">🏷️</span>
+        <span class="titulo">Precio de venta</span>
+        <span class="descripcion">
+          Calculá a cuánto vender un producto según su costo y la ganancia que buscás.
+        </span>
+      </a>
+
+      <a href="#mercaderia" class="herramienta">
+        <span class="emoji">📦</span>
+        <span class="titulo">Mercadería</span>
+        <span class="descripcion">
+          Agregá varios productos y calculá inversión, ventas posibles y ganancia total.
+        </span>
+      </a>
+
+      <a href="#gastos" class="herramienta">
+        <span class="emoji">💸</span>
+        <span class="titulo">Gastos del negocio</span>
+        <span class="descripcion">
+          Sumá tus gastos mensuales y conocé cuánto necesitás generar para cubrirlos.
+        </span>
+      </a>
+
+      <a href="#equilibrio" class="herramienta">
+        <span class="emoji">📊</span>
+        <span class="titulo">Punto de equilibrio</span>
+        <span class="descripcion">
+          Calculá cuánto tenés que vender para cubrir todos tus gastos.
+        </span>
+      </a>
+
+      <a href="#ventas" class="herramienta">
+        <span class="emoji">📈</span>
+        <span class="titulo">Ventas y ganancias</span>
+        <span class="descripcion">
+          Estimá tus ingresos y ganancias según la cantidad de productos vendidos.
+        </span>
+      </a>
+
+      <a href="#iva" class="herramienta">
+        <span class="emoji">🧾</span>
+        <span class="titulo">IVA</span>
+        <span class="descripcion">
+          Calculá IVA incluido, IVA discriminado y precio final.
+        </span>
+      </a>
+
+      <a href="#comisiones" class="herramienta">
+        <span class="emoji">💳</span>
+        <span class="titulo">Comisiones</span>
+        <span class="descripcion">
+          Calculá cuánto te queda después de las comisiones de medios de pago.
+        </span>
+      </a>
+
+    </div>
+
+  </main>
+
+  <footer>
+    © 2026 Calcular Argentina
+  </footer>
+
+</body>
+</html>
