@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Calculadora de Consumo Eléctrico - Calcular Argentina</title>
+
+  <meta name="description" content="Calculadora de consumo de luz para el hogar en Argentina. Calculá cuántos kWh gastan tus electrodomésticos y estimá el costo de tu boleta.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f6f8;
+      color: #222;
+    }
+
+    header {
+      background: white;
+      padding: 25px 20px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    header p {
+      color: #666;
+      margin-bottom: 0;
+    }
+
+    main {
+      max-width: 600px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .calculadora {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      border: 1px solid #e1e1e1;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 7px;
+      font-weight: bold;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 13px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 20px;
+      background: #222;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .info-tarifas {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #1f6b43;
+      background: #e8f5e9;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #c8e6c9;
+      line-height: 1.5;
+    }
+
+    .resultado {
+      margin-top: 20px;
+      padding: 18px;
+      background: #f1f2f4;
+      border-radius: 10px;
+      font-size: 17px;
+      line-height: 1.6;
+      display: none;
+    }
+
+    .resultado h3 {
+      margin-top: 0;
+      text-align: center;
+      color: #222;
+    }
+
+    .dato-destacado {
+      font-size: 22px;
+      font-weight: bold;
+      text-align: center;
+      margin: 10px 0;
+      color: #198754;
+    }
+
+    .volver {
+      display: block;
+      text-align: center;
+      margin-top: 25px;
+      color: #222;
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #777;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🏠 Calculadora de Consumo Eléctrico</h1>
+    <p>Calcular Argentina</p>
+  </header>
+
+  <main>
+
+    <div class="calculadora">
+
+      <label for="aparato">Elegí el electrodoméstico</label>
+      <select id="aparato">
+        <option value="1.5">Aire Acondicionado (Mediano) - 1500W</option>
+        <option value="2.0">Termotanque Eléctrico - 2000W</option>
+        <option value="1.2">Pava Eléctrica - 1200W</option>
+        <option value="0.3">Heladera con Freezer - 300W</option>
+        <option value="0.4">Lavarropas Automático - 400W</option>
+        <option value="0.8">Microondas - 800W</option>
+        <option value="0.1">Televisor LED - 100W</option>
+        <option value="0.015">Foco LED Inteligente - 15W</option>
+        <option value="2.2">Caloventor - 2200W</option>
+        <option value="0.3">Computadora de Escritorio - 300W</option>
+      </select>
+
+      <label for="horas">¿Cuántas horas al día se usa?</label>
+      <input type="number" id="horas" value="4" min="1" max="24">
+
+      <label for="dias">¿Cuántos días al mes se usa?</label>
+      <input type="number" id="dias" value="30" min="1" max="30">
+
+      <label for="costokwh">Costo estimado del kWh (\$)</label>
+      <input type="number" id="costokwh" value="120" min="1">
+
+      <div class="info-tarifas" id="bloqueTarifas">
+        💡 <strong>Referencia tarifaria (Octubre 2026):</strong> En Argentina, el valor del kWh varía según tu provincia y nivel de subsidio (N1, N2, N3). Promedio estimado: <strong>\$120</strong> por kWh. ¡Ajustalo al valor real de tu factura!
+      </div>
+
+      <button onclick="calcularConsumo()">Calcular Consumo Mensual</button>
+
+      <div class="resultado" id="resultado"></div>
+
+    </div>
+
+    <a class="volver" href="index.html">
+      ← Volver al Inicio
+    </a>
+
+  </main>
+
+  <footer>
+    © 2026 Calcular Argentina
+  </footer>
+
+  <script>
+    // Al igual que la nafta, actualiza el mes automáticamente para el SEO
+    window.onload = function() {
+      const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+      const fechaActual = new Date();
+      const mesActual = meses[fechaActual.getMonth()];
+      const anioActual = fechaActual.getFullYear();
+      
+      const infoDiv = document.getElementById("bloqueTarifas");
+      infoDiv.innerHTML = `💡 <strong>Referencia tarifaria (${mesActual} ${anioActual}):</strong> En Argentina, el valor del kWh varía según tu provincia y nivel de subsidio. Promedio estimado: <strong>$120</strong> por kWh. ¡Ajustalo al valor real de tu factura!`;
+    };
+
+    function calcularConsumo() {
+      const potencia = parseFloat(document.getElementById("aparato").value);
+      const horas = parseFloat(document.getElementById("horas").value);
+      const dias = parseFloat(document.getElementById("dias").value);
+      const costoKwh = parseFloat(document.getElementById("costokwh").value);
+      const resultadoDiv = document.getElementById("resultado");
+
+      if (isNaN(horas) || isNaN(dias) || isNaN(costoKwh) || horas <= 0 || horas > 24 || dias <= 0 || dias > 30 || costoKwh <= 0) {
+        resultadoDiv.style.display = "block";
+        resultadoDiv.innerHTML = "Por favor, ingresá valores válidos dentro de los rangos reales.";
+        return;
+      }
+
+      // Cálculo matemático: Potencia (kW) * Horas * Días
+      const kwhMensuales = potencia * horas * dias;
+      const costoTotalMensual = kwhMensuales * costoKwh;
+
+      resultadoDiv.innerHTML = `
+        <h3>📊 Resultados del Consumo</h3>
+        <p>⚡ <strong>Gasto eléctrico estimado:</strong> ${kwhMensuales.toLocaleString("es-AR", { maximumFractionDigits: 2 })} kWh al mes.</p>
+        <hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;">
+        <p>💸 <strong>Costo estimado en tu factura:</strong></p>
+        <div class="dato-destacado">$${costoTotalMensual.toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+        <p style="font-size: 13px; color: #666; text-align: center;">*Este cálculo no incluye cargos fijos, tasas municipales ni impuestos de la distribuidora de tu zona.</p>
+      `;
+      
+      resultadoDiv.style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
