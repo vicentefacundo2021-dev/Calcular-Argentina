@@ -6,7 +6,7 @@
 
   <title>Calculadora de Gasto de Combustible - Calcular Argentina</title>
 
-  <meta name="description" content="Calculá cuánto vas a gastar en combustible en un viaje. Elegí origen y destino, calculá la distancia, litros de combustible y costo total del viaje.">
+  <meta name="description" content="Calculá cuánto vas a gastar en combustible según la distancia, el consumo de tu vehículo y el precio del combustible.">
 
   <style>
     * {
@@ -57,40 +57,8 @@
       font-weight: bold;
     }
 
-    .buscador-contenedor {
-      position: relative;
-    }
-
-    .fila-inputs {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .contenedor-invertir {
-      display: flex;
-      justify-content: center;
-      margin: 5px 0;
-    }
-
-    .btn-invertir {
-      background: #e1e1e1;
-      color: #222;
-      border: none;
-      padding: 8px 15px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: bold;
-      width: auto;
-      transition: background 0.2s;
-    }
-
-    .btn-invertir:hover {
-      background: #ccc;
-    }
-
     input,
+    select,
     button {
       width: 100%;
       padding: 13px;
@@ -99,46 +67,19 @@
       font-size: 16px;
     }
 
-    .sugerencias {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: white;
-      border: 1px solid #ccc;
-      border-top: none;
-      border-radius: 0 0 8px 8px;
-      z-index: 1000;
-      max-height: 200px;
-      overflow-y: auto;
-      display: none;
-    }
-
-    .sugerencia-item {
-      padding: 10px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .sugerencia-item:hover {
-      background: #f0f0f0;
-    }
-
-    .opciones-viaje {
-      margin-top: 18px;
-    }
-
-    .opciones-viaje label {
-      margin-top: 0;
-    }
-
     select {
-      width: 100%;
-      padding: 13px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 16px;
       background: white;
+    }
+
+    .precio-info {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #664d03;
+      background: #fff3cd;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ffecb5;
+      line-height: 1.5;
     }
 
     .btn-principal {
@@ -154,24 +95,6 @@
       opacity: 0.9;
     }
 
-    .info-precios {
-      margin-top: 15px;
-      font-size: 14px;
-      color: #664d03;
-      background: #fff3cd;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #ffecb5;
-      line-height: 1.5;
-    }
-
-    .estado-ruta {
-      margin-top: 10px;
-      font-size: 14px;
-      color: #666;
-      display: none;
-    }
-
     .resultado {
       margin-top: 20px;
       padding: 18px;
@@ -185,11 +108,10 @@
     .resultado h3 {
       margin-top: 0;
       text-align: center;
-      color: #222;
     }
 
     .dato-destacado {
-      font-size: 19px;
+      font-size: 21px;
       font-weight: bold;
       text-align: center;
       margin: 10px 0;
@@ -210,690 +132,321 @@
       color: #777;
       font-size: 14px;
     }
-
-    .cargando {
-      padding: 10px;
-      color: #666;
-      font-size: 14px;
-    }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <h1>🚗 Costo de Viaje y Combustible</h1>
-    <p>Calcular Argentina</p>
-  </header>
+<header>
+  <h1>🚗 Costo de Viaje y Combustible</h1>
+  <p>Calcular Argentina</p>
+</header>
 
-  <main>
+<main>
 
-    <div class="calculadora">
+  <div class="calculadora">
 
-      <div class="fila-inputs">
+    <!-- DISTANCIA -->
+    <label for="distancia">
+      Distancia del viaje (km)
+    </label>
 
-        <!-- ORIGEN -->
-        <div>
-          <label for="origen">Desde (Origen)</label>
+    <input
+      type="number"
+      id="distancia"
+      placeholder="Ej: 350"
+      min="1"
+      step="1"
+    >
 
-          <div class="buscador-contenedor">
+    <!-- TIPO DE VIAJE -->
+    <label for="tipoViaje">
+      Tipo de viaje
+    </label>
 
-            <input
-              type="text"
-              id="origen"
-              placeholder="Ej: Azul, Buenos Aires"
-              autocomplete="off"
-              oninput="buscarCiudad('origen')"
-            >
+    <select id="tipoViaje">
+      <option value="ida">Solo ida</option>
+      <option value="ida-vuelta">Ida y vuelta</option>
+    </select>
 
-            <div id="sugerencias-origen" class="sugerencias"></div>
+    <!-- CONSUMO -->
+    <label for="consumo">
+      Consumo del vehículo (litros cada 100 km)
+    </label>
 
-          </div>
-        </div>
+    <input
+      type="number"
+      id="consumo"
+      value="8"
+      min="0.1"
+      step="0.1"
+    >
 
-        <!-- INVERTIR -->
-        <div class="contenedor-invertir">
+    <!-- PRECIO -->
+    <label for="precio">
+      Precio del combustible por litro ($)
+    </label>
 
-          <button
-            class="btn-invertir"
-            type="button"
-            onclick="invertirRuta()"
-          >
-            🔄 Invertir dirección
-          </button>
+    <input
+      type="number"
+      id="precio"
+      value="1100"
+      min="1"
+      step="1"
+    >
 
-        </div>
-
-        <!-- DESTINO -->
-        <div>
-
-          <label for="destino">Hasta (Destino)</label>
-
-          <div class="buscador-contenedor">
-
-            <input
-              type="text"
-              id="destino"
-              placeholder="Ej: Mar del Plata, Buenos Aires"
-              autocomplete="off"
-              oninput="buscarCiudad('destino')"
-            >
-
-            <div id="sugerencias-destino" class="sugerencias"></div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- TIPO DE VIAJE -->
-      <div class="opciones-viaje">
-
-        <label for="tipoViaje">Tipo de viaje</label>
-
-        <select id="tipoViaje">
-          <option value="ida">Solo ida</option>
-          <option value="ida-vuelta">Ida y vuelta</option>
-        </select>
-
-      </div>
-
-      <!-- DISTANCIA -->
-      <label for="distancia">
-        Distancia calculada (Kilómetros)
-      </label>
-
-      <input
-        type="number"
-        id="distancia"
-        placeholder="Se calculará automáticamente"
-        min="1"
-      >
-
-      <div id="estadoRuta" class="estado-ruta"></div>
-
-      <!-- CONSUMO -->
-      <label for="consumo">
-        Consumo del auto (Litros cada 100 km)
-      </label>
-
-      <input
-        type="number"
-        id="consumo"
-        value="8"
-        min="1"
-        step="0.1"
-      >
-
-      <!-- PRECIO -->
-      <label for="precio">
-        Precio del combustible por litro ($)
-      </label>
-
-      <input
-        type="number"
-        id="precio"
-        value="1100"
-        min="1"
-        step="1"
-      >
-
-      <!-- INFORMACIÓN -->
-      <div class="info-precios" id="bloqueInfo">
-        💡 <strong>Precios de referencia:</strong>
-        Cargá el valor real de tu combustible.
-      </div>
-
-      <!-- PASAJEROS -->
-      <label for="pasajeros">
-        Cantidad de pasajeros (Para dividir gastos)
-      </label>
-
-      <input
-        type="number"
-        id="pasajeros"
-        value="1"
-        min="1"
-        step="1"
-      >
-
-      <!-- BOTÓN -->
-      <button
-        class="btn-principal"
-        onclick="calcularViaje()"
-      >
-        Calcular Costo del Viaje
-      </button>
-
-      <!-- RESULTADO -->
-      <div
-        class="resultado"
-        id="resultado"
-      ></div>
-
+    <div class="precio-info">
+      💡 <strong>Precio de referencia:</strong>
+      Actualizá este valor según el precio actual de tu estación de servicio.
     </div>
 
-    <a
-      class="volver"
-      href="index.html"
+    <!-- PASAJEROS -->
+    <label for="pasajeros">
+      Cantidad de pasajeros
+    </label>
+
+    <input
+      type="number"
+      id="pasajeros"
+      value="1"
+      min="1"
+      step="1"
     >
-      ← Volver al Inicio
-    </a>
 
-  </main>
+    <!-- BOTÓN -->
+    <button
+      class="btn-principal"
+      onclick="calcularViaje()"
+    >
+      Calcular Costo del Viaje
+    </button>
 
-  <footer>
-    © 2026 Calcular Argentina
-  </footer>
+    <!-- RESULTADO -->
+    <div
+      class="resultado"
+      id="resultado"
+    ></div>
 
+  </div>
 
-  <script>
+  <a
+    class="volver"
+    href="index.html"
+  >
+    ← Volver al Inicio
+  </a>
 
-    /* =========================================
-       VARIABLES
-    ========================================= */
+</main>
 
-    let coordOrigen = null;
-    let coordDestino = null;
+<footer>
+  © 2026 Calcular Argentina
+</footer>
 
 
-    /* =========================================
-       INFORMACIÓN DE PRECIOS
-    ========================================= */
+<script>
 
-    window.onload = function () {
+  /*
+   * PRECIO DE REFERENCIA
+   *
+   * Cuando queramos actualizar el precio
+   * solamente cambiamos este número.
+   */
 
-      const meses = [
-        "Enero",
-        "Febrero",
-        "Marzo",
-        "Abril",
-        "Mayo",
-        "Junio",
-        "Julio",
-        "Agosto",
-        "Septiembre",
-        "Octubre",
-        "Noviembre",
-        "Diciembre"
-      ];
+  const PRECIO_REFERENCIA = 1100;
 
-      const fecha = new Date();
 
-      document.getElementById("bloqueInfo").innerHTML =
-        `💡 <strong>Precios de referencia (${meses[fecha.getMonth()]} ${fecha.getFullYear()}):</strong>
-        El precio varía según la provincia y la estación de servicio.
-        Ajustá el casillero con el valor real de tu combustible.`;
+  /*
+   * CALCULADORA
+   */
 
-    };
+  function calcularViaje() {
 
+    const distancia =
+      parseFloat(
+        document.getElementById("distancia").value
+      );
 
-    /* =========================================
-       BUSCADOR DE CIUDADES
-       OPENSTREETMAP / NOMINATIM
-    ========================================= */
+    const tipoViaje =
+      document.getElementById("tipoViaje").value;
 
-    let temporizadorBusqueda;
+    const consumo =
+      parseFloat(
+        document.getElementById("consumo").value
+      );
 
-    function buscarCiudad(tipo) {
+    const precio =
+      parseFloat(
+        document.getElementById("precio").value
+      );
 
-      const input = document.getElementById(tipo);
+    const pasajeros =
+      parseInt(
+        document.getElementById("pasajeros").value
+      );
 
-      const sugerencias =
-        document.getElementById(`sugerencias-${tipo}`);
+    const resultado =
+      document.getElementById("resultado");
 
-      const texto = input.value.trim();
 
-      if (texto.length < 3) {
+    /*
+     * VALIDACIÓN
+     */
 
-        sugerencias.style.display = "none";
-        return;
+    if (
+      isNaN(distancia) ||
+      isNaN(consumo) ||
+      isNaN(precio) ||
+      isNaN(pasajeros) ||
+      distancia <= 0 ||
+      consumo <= 0 ||
+      precio <= 0 ||
+      pasajeros <= 0
+    ) {
 
-      }
-
-      clearTimeout(temporizadorBusqueda);
-
-      temporizadorBusqueda = setTimeout(() => {
-
-        sugerencias.innerHTML =
-          '<div class="cargando">Buscando ciudades...</div>';
-
-        sugerencias.style.display = "block";
-
-        const url =
-          `https://nominatim.openstreetmap.org/search?` +
-          `q=${encodeURIComponent(texto)}` +
-          `&countrycodes=ar` +
-          `&format=json` +
-          `&addressdetails=1` +
-          `&limit=5`;
-
-        fetch(url, {
-          headers: {
-            "Accept": "application/json"
-          }
-        })
-
-        .then(response => {
-
-          if (!response.ok) {
-            throw new Error("Error en la búsqueda");
-          }
-
-          return response.json();
-
-        })
-
-        .then(data => {
-
-          sugerencias.innerHTML = "";
-
-          if (!data || data.length === 0) {
-
-            sugerencias.innerHTML =
-              '<div class="cargando">No se encontraron ciudades.</div>';
-
-            return;
-
-          }
-
-          data.forEach(lugar => {
-
-            const item =
-              document.createElement("div");
-
-            item.className =
-              "sugerencia-item";
-
-            const nombre =
-              lugar.display_name
-                .split(",")
-                .slice(0, 3)
-                .join(", ");
-
-            item.innerText = nombre;
-
-            item.onclick = function () {
-
-              input.value = nombre;
-
-              sugerencias.style.display = "none";
-
-              const coordenadas = {
-                lat: parseFloat(lugar.lat),
-                lon: parseFloat(lugar.lon)
-              };
-
-              if (tipo === "origen") {
-
-                coordOrigen = coordenadas;
-
-              } else {
-
-                coordDestino = coordenadas;
-
-              }
-
-              if (coordOrigen && coordDestino) {
-
-                obtenerDistanciaRuta();
-
-              }
-
-            };
-
-            sugerencias.appendChild(item);
-
-          });
-
-        })
-
-        .catch(error => {
-
-          console.error(error);
-
-          sugerencias.innerHTML =
-            '<div class="cargando">No se pudo realizar la búsqueda.</div>';
-
-        });
-
-      }, 500);
-
-    }
-
-
-    /* =========================================
-       CALCULAR DISTANCIA POR RUTA
-       OSRM
-    ========================================= */
-
-    function obtenerDistanciaRuta() {
-
-      if (!coordOrigen || !coordDestino) {
-        return;
-      }
-
-      const estado =
-        document.getElementById("estadoRuta");
-
-      estado.style.display = "block";
-
-      estado.innerText =
-        "🛣️ Calculando distancia por ruta...";
-
-      const url =
-        `https://router.project-osrm.org/route/v1/driving/` +
-        `${coordOrigen.lon},${coordOrigen.lat};` +
-        `${coordDestino.lon},${coordDestino.lat}` +
-        `?overview=false`;
-
-      fetch(url)
-
-        .then(response => {
-
-          if (!response.ok) {
-            throw new Error("No se pudo calcular la ruta");
-          }
-
-          return response.json();
-
-        })
-
-        .then(data => {
-
-          if (
-            data.routes &&
-            data.routes.length > 0
-          ) {
-
-            const distanciaKm =
-              data.routes[0].distance / 1000;
-
-            document.getElementById("distancia").value =
-              Math.round(distanciaKm);
-
-            estado.innerText =
-              `✅ Distancia calculada: ${Math.round(distanciaKm)} km`;
-
-          } else {
-
-            estado.innerText =
-              "No se pudo calcular la distancia.";
-
-          }
-
-        })
-
-        .catch(error => {
-
-          console.error(error);
-
-          estado.innerText =
-            "No se pudo calcular automáticamente la distancia. Podés ingresarla manualmente.";
-
-        });
-
-    }
-
-
-    /* =========================================
-       INVERTIR ORIGEN Y DESTINO
-    ========================================= */
-
-    function invertirRuta() {
-
-      const origen =
-        document.getElementById("origen");
-
-      const destino =
-        document.getElementById("destino");
-
-      const textoOrigen =
-        origen.value;
-
-      origen.value =
-        destino.value;
-
-      destino.value =
-        textoOrigen;
-
-
-      const coordenadasTemporales =
-        coordOrigen;
-
-      coordOrigen =
-        coordDestino;
-
-      coordDestino =
-        coordenadasTemporales;
-
-
-      if (coordOrigen && coordDestino) {
-
-        obtenerDistanciaRuta();
-
-      }
-
-    }
-
-
-    /* =========================================
-       CERRAR SUGERENCIAS AL HACER CLICK AFUERA
-    ========================================= */
-
-    document.addEventListener("click", function(event) {
-
-      if (
-        !event.target.closest(".buscador-contenedor")
-      ) {
-
-        document.getElementById(
-          "sugerencias-origen"
-        ).style.display = "none";
-
-        document.getElementById(
-          "sugerencias-destino"
-        ).style.display = "none";
-
-      }
-
-    });
-
-
-    /* =========================================
-       CALCULADORA
-    ========================================= */
-
-    function calcularViaje() {
-
-      const distancia =
-        parseFloat(
-          document.getElementById("distancia").value
-        );
-
-      const consumo =
-        parseFloat(
-          document.getElementById("consumo").value
-        );
-
-      const precio =
-        parseFloat(
-          document.getElementById("precio").value
-        );
-
-      const pasajeros =
-        parseInt(
-          document.getElementById("pasajeros").value
-        );
-
-      const tipoViaje =
-        document.getElementById("tipoViaje").value;
-
-      const resultado =
-        document.getElementById("resultado");
-
-
-      /* VALIDACIÓN */
-
-      if (
-        isNaN(distancia) ||
-        isNaN(consumo) ||
-        isNaN(precio) ||
-        isNaN(pasajeros) ||
-        distancia <= 0 ||
-        consumo <= 0 ||
-        precio <= 0 ||
-        pasajeros <= 0
-      ) {
-
-        resultado.style.display = "block";
-
-        resultado.innerHTML =
-          "⚠️ Por favor, completá todos los datos correctamente.";
-
-        return;
-
-      }
-
-
-      /* DISTANCIA FINAL */
-
-      let distanciaTotal =
-        distancia;
-
-      if (tipoViaje === "ida-vuelta") {
-
-        distanciaTotal =
-          distancia * 2;
-
-      }
-
-
-      /* LITROS */
-
-      const litros =
-        (distanciaTotal * consumo) / 100;
-
-
-      /* COSTO */
-
-      const costoTotal =
-        litros * precio;
-
-
-      /* COSTO POR PERSONA */
-
-      const costoPorPersona =
-        costoTotal / pasajeros;
-
-
-      /* FORMATO DE NÚMEROS */
-
-      const formatoNumero = numero =>
-        numero.toLocaleString(
-          "es-AR",
-          {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-          }
-        );
-
-
-      const formatoDinero = numero =>
-        "$" +
-        numero.toLocaleString(
-          "es-AR",
-          {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-          }
-        );
-
-
-      /* RESULTADO */
-
-      let html = `
-
-        <h3>📊 Resumen del Viaje</h3>
-
-        <p>
-          🛣️ <strong>Distancia de ida:</strong>
-          ${distancia.toLocaleString("es-AR")} km
-        </p>
-
-      `;
-
-
-      if (tipoViaje === "ida-vuelta") {
-
-        html += `
-
-          <p>
-            🔄 <strong>Distancia total ida y vuelta:</strong>
-            ${distanciaTotal.toLocaleString("es-AR")} km
-          </p>
-
-        `;
-
-      }
-
-
-      html += `
-
-        <p>
-          ⛽ <strong>Combustible necesario:</strong>
-          ${formatoNumero(litros)} litros
-        </p>
-
-        <p>
-          💰 <strong>Costo total del combustible:</strong>
-        </p>
-
-        <div class="dato-destacado">
-          ${formatoDinero(costoTotal)}
-        </div>
-
-      `;
-
-
-      if (pasajeros > 1) {
-
-        html += `
-
-          <hr
-            style="
-              border:0;
-              border-top:1px solid #ddd;
-              margin:15px 0;
-            "
-          >
-
-          <p>
-            👥 <strong>Costo por persona:</strong>
-          </p>
-
-          <div
-            class="dato-destacado"
-            style="color:#198754;"
-          >
-            ${formatoDinero(costoPorPersona)}
-          </div>
-
-        `;
-
-      }
-
+      resultado.style.display = "block";
 
       resultado.innerHTML =
-        html;
+        "⚠️ Por favor, completá todos los datos correctamente.";
 
-      resultado.style.display =
-        "block";
-
+      return;
     }
 
-  </script>
+
+    /*
+     * DISTANCIA TOTAL
+     */
+
+    let distanciaTotal = distancia;
+
+    if (tipoViaje === "ida-vuelta") {
+      distanciaTotal = distancia * 2;
+    }
+
+
+    /*
+     * LITROS NECESARIOS
+     *
+     * Ejemplo:
+     * 700 km × 8 / 100 = 56 litros
+     */
+
+    const litros =
+      (distanciaTotal * consumo) / 100;
+
+
+    /*
+     * COSTO TOTAL
+     */
+
+    const costoTotal =
+      litros * precio;
+
+
+    /*
+     * COSTO POR PERSONA
+     */
+
+    const costoPorPersona =
+      costoTotal / pasajeros;
+
+
+    /*
+     * FORMATO DE NÚMEROS
+     */
+
+    const numero =
+      valor =>
+        valor.toLocaleString(
+          "es-AR",
+          {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }
+        );
+
+
+    const dinero =
+      valor =>
+        "$" +
+        valor.toLocaleString(
+          "es-AR",
+          {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }
+        );
+
+
+    /*
+     * RESULTADO
+     */
+
+    let html = `
+      <h3>📊 Resumen del viaje</h3>
+
+      <p>
+        🛣️ <strong>Distancia:</strong>
+        ${distancia.toLocaleString("es-AR")} km
+      </p>
+    `;
+
+
+    if (tipoViaje === "ida-vuelta") {
+
+      html += `
+        <p>
+          🔄 <strong>Distancia total ida y vuelta:</strong>
+          ${distanciaTotal.toLocaleString("es-AR")} km
+        </p>
+      `;
+    }
+
+
+    html += `
+      <p>
+        ⛽ <strong>Combustible necesario:</strong>
+        ${numero(litros)} litros
+      </p>
+
+      <p>
+        💰 <strong>Costo total del combustible:</strong>
+      </p>
+
+      <div class="dato-destacado">
+        ${dinero(costoTotal)}
+      </div>
+    `;
+
+
+    if (pasajeros > 1) {
+
+      html += `
+        <hr style="
+          border:0;
+          border-top:1px solid #ddd;
+          margin:15px 0;
+        ">
+
+        <p>
+          👥 <strong>Costo por persona:</strong>
+        </p>
+
+        <div
+          class="dato-destacado"
+          style="color:#198754;"
+        >
+          ${dinero(costoPorPersona)}
+        </div>
+      `;
+    }
+
+
+    resultado.innerHTML = html;
+
+    resultado.style.display = "block";
+  }
+
+</script>
 
 </body>
 </html>
