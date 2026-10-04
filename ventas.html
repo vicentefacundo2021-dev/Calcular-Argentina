@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Ventas y Ganancias - Calcular Argentina</title>
+  <title>Ventas y ganancias - Calcular Argentina</title>
 
-  <meta name="description" content="Compará las ventas de tu negocio entre días y analizá si vendiste más o menos.">
+  <meta name="description" content="Registrá las ventas de tu negocio y compará la evolución de tus ventas día a día.">
 
   <style>
     * {
@@ -66,9 +66,34 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
-    h2 {
+    .tarjeta h2 {
       margin-top: 0;
-      font-size: 21px;
+    }
+
+    .boton-principal {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background: #222;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 10px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+    }
+
+    .boton-principal:hover {
+      opacity: 0.9;
+    }
+
+    #formulario {
+      display: none;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
     }
 
     label {
@@ -86,7 +111,7 @@
       font-size: 16px;
     }
 
-    button {
+    .guardar {
       width: 100%;
       padding: 13px;
       margin-top: 18px;
@@ -99,6 +124,17 @@
       cursor: pointer;
     }
 
+    .cerrar {
+      width: 100%;
+      padding: 11px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: white;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
     .tabla-contenedor {
       overflow-x: auto;
     }
@@ -106,11 +142,11 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 10px;
       min-width: 650px;
     }
 
-    th, td {
+    th,
+    td {
       padding: 10px;
       border-bottom: 1px solid #ddd;
       text-align: center;
@@ -122,10 +158,11 @@
 
     .eliminar {
       background: #c62828;
+      color: white;
+      border: none;
       padding: 8px 10px;
-      margin: 0;
-      width: auto;
-      font-size: 13px;
+      border-radius: 7px;
+      cursor: pointer;
     }
 
     .mas {
@@ -141,6 +178,12 @@
     .igual {
       color: #777;
       font-weight: bold;
+    }
+
+    .vacio {
+      text-align: center;
+      color: #777;
+      padding: 20px;
     }
 
     .resumen {
@@ -165,14 +208,8 @@
     }
 
     .resultado span {
-      font-size: 20px;
+      font-size: 19px;
       font-weight: bold;
-    }
-
-    .vacio {
-      text-align: center;
-      color: #777;
-      padding: 15px;
     }
 
     footer {
@@ -204,7 +241,314 @@
 
     <div class="tarjeta">
 
-      <h2>📈 Registrar ventas del día</h2>
+      <h2>📈 Ventas y ganancias</h2>
 
-      <label for="fecha">Fecha</label>
-      <input type="
+      <button class="boton-principal" onclick="mostrarFormulario()">
+        ➕ Registrar ventas
+      </button>
+
+      <div id="formulario">
+
+        <label for="fecha">Fecha</label>
+        <input type="date" id="fecha">
+
+        <label for="ventas">Total vendido ($)</label>
+        <input
+          type="number"
+          id="ventas"
+          min="0"
+          step="0.01"
+          placeholder="Ej: 150000"
+        >
+
+        <button class="guardar" onclick="agregarVenta()">
+          💾 Guardar venta
+        </button>
+
+        <button class="cerrar" onclick="ocultarFormulario()">
+          Cancelar
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="tarjeta">
+
+      <h2>📊 Evolución de ventas</h2>
+
+      <div class="tabla-contenedor">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Ventas</th>
+              <th>Comparación</th>
+              <th>Diferencia</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody id="listaVentas">
+
+            <tr>
+              <td colspan="5" class="vacio">
+                Todavía no registraste ventas.
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+      <div class="resumen">
+
+        <div class="resultado">
+          <strong>💰 Total vendido</strong>
+          <span id="totalVendido">$0</span>
+        </div>
+
+        <div class="resultado">
+          <strong>📊 Promedio diario</strong>
+          <span id="promedio">$0</span>
+        </div>
+
+        <div class="resultado">
+          <strong>🏆 Mejor día</strong>
+          <span id="mejorDia">-</span>
+        </div>
+
+        <div class="resultado">
+          <strong>📉 Peor día</strong>
+          <span id="peorDia">-</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <footer>
+    © 2026 Calcular Argentina
+  </footer>
+
+  <script>
+
+    let ventas = [];
+
+    function mostrarFormulario() {
+      document.getElementById("formulario").style.display = "block";
+    }
+
+    function ocultarFormulario() {
+      document.getElementById("formulario").style.display = "none";
+    }
+
+    function formatoPesos(numero) {
+      return "$" + numero.toLocaleString("es-AR", {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+      });
+    }
+
+    function formatoFecha(fecha) {
+      const partes = fecha.split("-");
+      return partes[2] + "/" + partes[1] + "/" + partes[0];
+    }
+
+    function agregarVenta() {
+
+      const fecha = document.getElementById("fecha").value;
+      const monto = Number(document.getElementById("ventas").value);
+
+      if (!fecha) {
+        alert("Elegí una fecha.");
+        return;
+      }
+
+      if (monto <= 0) {
+        alert("Ingresá un monto válido.");
+        return;
+      }
+
+      const existente = ventas.find(v => v.fecha === fecha);
+
+      if (existente) {
+        alert("Ya registraste ventas para esa fecha.");
+        return;
+      }
+
+      ventas.push({
+        fecha: fecha,
+        monto: monto
+      });
+
+      ventas.sort((a, b) => a.fecha.localeCompare(b.fecha));
+
+      document.getElementById("fecha").value = "";
+      document.getElementById("ventas").value = "";
+
+      ocultarFormulario();
+      mostrarVentas();
+    }
+
+    function eliminarVenta(indice) {
+
+      ventas.splice(indice, 1);
+
+      mostrarVentas();
+    }
+
+    function mostrarVentas() {
+
+      const lista = document.getElementById("listaVentas");
+
+      lista.innerHTML = "";
+
+      if (ventas.length === 0) {
+
+        lista.innerHTML = `
+          <tr>
+            <td colspan="5" class="vacio">
+              Todavía no registraste ventas.
+            </td>
+          </tr>
+        `;
+
+      } else {
+
+        ventas.forEach((venta, indice) => {
+
+          let comparacion = "—";
+          let diferencia = "—";
+          let clase = "igual";
+
+          if (indice > 0) {
+
+            const anterior = ventas[indice - 1].monto;
+            const diferenciaPesos = venta.monto - anterior;
+
+            if (anterior > 0) {
+
+              const porcentaje =
+                (diferenciaPesos / anterior) * 100;
+
+              if (diferenciaPesos > 0) {
+
+                comparacion =
+                  "🟢 +" + porcentaje.toFixed(1) + "%";
+
+                diferencia =
+                  "+" + formatoPesos(diferenciaPesos);
+
+                clase = "mas";
+
+              } else if (diferenciaPesos < 0) {
+
+                comparacion =
+                  "🔴 " + porcentaje.toFixed(1) + "%";
+
+                diferencia =
+                  formatoPesos(diferenciaPesos);
+
+                clase = "menos";
+
+              } else {
+
+                comparacion = "➡️ Igual";
+                diferencia = "$0";
+                clase = "igual";
+              }
+
+            }
+
+          }
+
+          lista.innerHTML += `
+            <tr>
+              <td>${formatoFecha(venta.fecha)}</td>
+
+              <td>${formatoPesos(venta.monto)}</td>
+
+              <td class="${clase}">
+                ${comparacion}
+              </td>
+
+              <td class="${clase}">
+                ${diferencia}
+              </td>
+
+              <td>
+                <button
+                  class="eliminar"
+                  onclick="eliminarVenta(${indice})">
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          `;
+        });
+      }
+
+      calcularResumen();
+    }
+
+    function calcularResumen() {
+
+      if (ventas.length === 0) {
+
+        document.getElementById("totalVendido").textContent = "$0";
+        document.getElementById("promedio").textContent = "$0";
+        document.getElementById("mejorDia").textContent = "-";
+        document.getElementById("peorDia").textContent = "-";
+
+        return;
+      }
+
+      let total = 0;
+
+      ventas.forEach(venta => {
+        total += venta.monto;
+      });
+
+      const promedio = total / ventas.length;
+
+      let mejor = ventas[0];
+      let peor = ventas[0];
+
+      ventas.forEach(venta => {
+
+        if (venta.monto > mejor.monto) {
+          mejor = venta;
+        }
+
+        if (venta.monto < peor.monto) {
+          peor = venta;
+        }
+
+      });
+
+      document.getElementById("totalVendido").textContent =
+        formatoPesos(total);
+
+      document.getElementById("promedio").textContent =
+        formatoPesos(promedio);
+
+      document.getElementById("mejorDia").textContent =
+        formatoFecha(mejor.fecha) + " - " +
+        formatoPesos(mejor.monto);
+
+      document.getElementById("peorDia").textContent =
+        formatoFecha(peor.fecha) + " - " +
+        formatoPesos(peor.monto);
+    }
+
+  </script>
+
+</body>
+</html>
