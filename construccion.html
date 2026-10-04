@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Calculadora de Materiales de Construcción - Calcular Argentina</title>
+
+  <meta name="description" content="Calculadora de materiales de construcción gratis para Argentina. Calculá ladrillos, cemento, cal, arena y cerámicos para tus paredes o pisos de forma fácil.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f6f8;
+      color: #222;
+    }
+
+    header {
+      background: white;
+      padding: 25px 20px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    header p {
+      color: #666;
+      margin-bottom: 0;
+    }
+
+    main {
+      max-width: 600px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .calculadora {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      border: 1px solid #e1e1e1;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 7px;
+      font-weight: bold;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 13px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 20px;
+      background: #222;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .resultado {
+      margin-top: 20px;
+      padding: 18px;
+      background: #f1f2f4;
+      border-radius: 10px;
+      font-size: 17px;
+      line-height: 1.6;
+      display: none;
+    }
+
+    .resultado h3 {
+      margin-top: 0;
+      text-align: center;
+      color: #222;
+    }
+
+    .dato-m2 {
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      margin: 10px 0;
+      color: #222;
+      background: #e2e3e5;
+      padding: 8px;
+      border-radius: 6px;
+    }
+
+    .dato-material {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 8px 0;
+      color: #b94a00;
+    }
+
+    .volver {
+      display: block;
+      text-align: center;
+      margin-top: 25px;
+      color: #222;
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #777;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🧱 Calculadora de Materiales</h1>
+    <p>Calcular Argentina</p>
+  </header>
+
+  <main>
+
+    <div class="calculadora">
+
+      <label for="largo">Largo / Ancho de la superficie (Metros)</label>
+      <input type="number" id="largo" placeholder="Ej: 5" min="0.1" step="0.1">
+
+      <label for="alto">Alto / Profundidad de la superficie (Metros)</label>
+      <input type="number" id="alto" placeholder="Ej: 3" min="0.1" step="0.1">
+
+      <label for="tipoProyecto">¿Qué vas a construir / colocar?</label>
+      <select id="tipoProyecto">
+        <option value="hueco12">Pared de Ladrillo Hueco del 12</option>
+        <option value="hueco18">Pared de Ladrillo Hueco del 18</option>
+        <option value="comun">Pared de Ladrillo Común (Pared de 15)</option>
+        <option value="ceramico">Piso o Revestimiento de Cerámicos</option>
+      </select>
+
+      <button onclick="calcularMateriales()">Calcular Materiales</button>
+
+      <div class="resultado" id="resultado"></div>
+
+    </div>
+
+    <a class="volver" href="index.html">
+      ← Volver al Inicio
+    </a>
+
+  </main>
+
+  <footer>
+    © 2026 Calcular Argentina
+  </footer>
+
+  <script>
+    function calcularMateriales() {
+      const largo = parseFloat(document.getElementById("largo").value);
+      const alto = parseFloat(document.getElementById("alto").value);
+      const tipoProyecto = document.getElementById("tipoProyecto").value;
+      const resultadoDiv = document.getElementById("resultado");
+
+      if (isNaN(largo) || isNaN(alto) || largo <= 0 || alto <= 0) {
+        resultadoDiv.style.display = "block";
+        resultadoDiv.innerHTML = "Por favor, ingresá medidas válidas mayores a cero.";
+        return;
+      }
+
+      // Calcular metros cuadrados totales
+      const m2 = largo * alto;
+      let htmlResultado = `<h3>📋 Resumen de Materiales</h3>`;
+      htmlResultado += `<div class="dato-m2">📐 Superficie total: ${m2.toFixed(2)} m²</div>`;
+
+      // Variables para los cálculos
+      let totalLadrillos = 0;
+      let totalCementoBolsas = 0;
+      let totalCalBolsas = 0;
+      let totalArenaM3 = 0;
+      let totalCeramicoM2 = 0;
+
+      // Coeficientes promedio de la construcción argentina (con 10% de desperdicio incluido)
+      if (tipoProyecto === "hueco12") {
+        totalLadrillos = Math.ceil((m2 * 16) * 1.1);
+        totalCementoBolsas = Math.ceil(((m2 * 3.5) / 50) * 1.1);
+        totalCalBolsas = Math.ceil(((m2 * 8) / 25) * 1.1); // Bolsas de cal de 25kg
+        totalArenaM3 = (m2 * 0.015) * 1.1;
+
+        htmlResultado += `
+          <div class="dato-material">🧱 Ladrillos Huecos (12x18x33): ${totalLadrillos} unidades</div>
+          <div class="dato-material">⚖️ Cemento: ${totalCementoBolsas} bolsa(s) de 50 kg</div>
+          <div class="dato-material">⚪ Cal Hidráulica: ${totalCalBolsas} bolsa(s) de 25 kg</div>
+          <div class="dato-material">⏳ Arena: ${totalArenaM3.toFixed(2)} m³</div>
+        `;
+      } 
+      else if (tipoProyecto === "hueco18") {
+        totalLadrillos = Math.ceil((m2 * 16) * 1.1);
+        totalCementoBolsas = Math.ceil(((m2 * 5.0) / 50) * 1.1);
+        totalCalBolsas = Math.ceil(((m2 * 11) / 25) * 1.1);
+        totalArenaM3 = (m2 * 0.022) * 1.1;
+
+        htmlResultado += `
+          <div class="dato-material">🧱 Ladrillos Huecos (18x18x33): ${totalLadrillos} unidades</div>
+          <div class="dato-material">⚖️ Cemento: ${totalCementoBolsas} bolsa(s) de 50 kg</div>
+          <div class="dato-material">⚪ Cal Hidráulica: ${totalCalBolsas} bolsa(s) de 25 kg</div>
+          <div class="dato-material">⏳ Arena: ${totalArenaM3.toFixed(2)} m³</div>
+        `;
+      } 
+      else if (tipoProyecto === "comun") {
+        totalLadrillos = Math.ceil((m2 * 60) * 1.1);
+        totalCementoBolsas = Math.ceil(((m2 * 9.0) / 50) * 1.1);
+        totalCalBolsas = Math.ceil(((m2 * 23) / 25) * 1.1);
+        totalArenaM3 = (m2 * 0.035) * 1.1;
+
+        htmlResultado += `
+          <div class="dato-material">🧱 Ladrillos Comunes: ${totalLadrillos} unidades</div>
+          <div class="dato-material">⚖️ Cemento: ${totalCementoBolsas} bolsa(s) de 50 kg</div>
+          <div class="dato-material">⚪ Cal Hidráulica: ${totalCalBolsas} bolsa(s) de 25 kg</div>
+          <div class="dato-material">⏳ Arena: ${totalArenaM3.toFixed(2)} m³</div>
+        `;
+      } 
+      else if (tipoProyecto === "ceramico") {
+        // Para cerámicos sumamos un 10% obligatorio por recortes de esquinas y zócalos
+        totalCeramicoM2 = m2 * 1.1;
+        // Estimación de bolsas de pegamento (aprox 5kg por m2, bolsas vienen de 30kg)
+        let totalPegamentoBolsas = Math.ceil(((m2 * 5) / 30) * 1.1);
+
+        htmlResultado += `
+          <div class="dato-material" style="color: #0d6efd;">✨ Cerámicos necesarios: ${totalCeramicoM2.toFixed(2)} m²</div>
+          <div class="dato-material">📦 Cajas a comprar: Consultar m² por caja del fabricante.</div>
+          <div class="dato-material">🥣 Pegamento Cerámico: ${totalPegamentoBolsas} bolsa(s) de 30 kg</div>
+          <p style="font-size: 13px; color: #666; margin-top: 10px;">*El cálculo de cerámicos ya incluye un 10% extra sugerido para desperdicio por cortes y guardas.</p>
+        `;
+      }
+
+      if (tipoProyecto !== "ceramico") {
+        htmlResultado += `
+          <p style="font-size: 13px; color: #666; margin-top: 15px; text-align: center;">
+            *Dosificación calculada para mezcla de asiento tradicional e incluye un 10% por desperdicio en obra.
+          </p>
+        `;
+      }
+
+      resultadoDiv.innerHTML = htmlResultado;
+      resultadoDiv.style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
