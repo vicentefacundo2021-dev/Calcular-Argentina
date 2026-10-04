@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Calculadora para Asados y Eventos - Calcular Argentina</title>
+
+  <meta name="description" content="Calculadora de asados y eventos gratis para Argentina. Calculá cuánta carne, bebida y carbón comprar, y dividí los gastos por persona fácilmente.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f6f8;
+      color: #222;
+    }
+
+    header {
+      background: white;
+      padding: 25px 20px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    header p {
+      color: #666;
+      margin-bottom: 0;
+    }
+
+    main {
+      max-width: 600px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .calculadora {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      border: 1px solid #e1e1e1;
+    }
+
+    .grupo-inputs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 7px;
+      font-weight: bold;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 13px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 22px;
+      background: #222;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .resultado {
+      margin-top: 20px;
+      padding: 18px;
+      background: #f1f2f4;
+      border-radius: 10px;
+      font-size: 17px;
+      line-height: 1.6;
+      display: none;
+    }
+
+    .resultado h3 {
+      margin-top: 0;
+      text-align: center;
+      color: #222;
+    }
+
+    .dato-destacado {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 8px 0;
+      color: #d63384;
+    }
+
+    .volver {
+      display: block;
+      text-align: center;
+      margin-top: 25px;
+      color: #222;
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #777;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🎉 Calculadora de Asados y Eventos</h1>
+    <p>Calcular Argentina</p>
+  </header>
+
+  <main>
+
+    <div class="calculadora">
+
+      <label>¿Quiénes asisten al evento?</label>
+      <div class="grupo-inputs">
+        <div>
+          <span style="font-size: 12px; color: #555;">Hombres</span>
+          <input type="number" id="hombres" value="0" min="0">
+        </div>
+        <div>
+          <span style="font-size: 12px; color: #555;">Mujeres</span>
+          <input type="number" id="mujeres" value="0" min="0">
+        </div>
+        <div>
+          <span style="font-size: 12px; color: #555;">Niños</span>
+          <input type="number" id="ninos" value="0" min="0">
+        </div>
+      </div>
+
+      <label for="gastos">Gastos extras totales (Opcional - \$)</label>
+      <input type="number" id="gastos" placeholder="Ej: Bebida, salón, cotillón (15000)" min="0">
+
+      <button onclick="calcularEvento()">Calcular Comida y Gastos</button>
+
+      <div class="resultado" id="resultado"></div>
+
+    </div>
+
+    <a class="volver" href="index.html">
+      ← Volver al Inicio
+    </a>
+
+  </main>
+
+  <footer>
+    © 2026 Calcular Argentina
+  </footer>
+
+  <script>
+    function calcularEvento() {
+      const hombres = parseInt(document.getElementById("hombres").value) || 0;
+      const mujeres = parseInt(document.getElementById("mujeres").value) || 0;
+      const ninos = parseInt(document.getElementById("ninos").value) || 0;
+      const gastosExtras = parseFloat(document.getElementById("gastos").value) || 0;
+      const resultadoDiv = document.getElementById("resultado");
+
+      const totalPersonas = hombres + mujeres + ninos;
+      const adultos = hombres + mujeres;
+
+      if (totalPersonas <= 0) {
+        resultadoDiv.style.display = "block";
+        resultadoDiv.innerHTML = "Por favor, ingresá al menos un asistente al evento.";
+        return;
+      }
+
+      // 1. Cálculo de comida y bebida (parámetros promedio para un asado argentino)
+      // Carne: Hombre 500g, Mujer 400g, Niño 250g
+      const carneTotalKg = ((hombres * 0.5) + (mujeres * 0.4) + (ninos * 0.25));
+      // Chorizos: Adulto 1.5 u, Niño 1 u
+      const chorizosTotales = Math.ceil((adultos * 1.5) + (ninos * 1));
+      // Carbón: 1.5 kg por cada kilo de carne aprox.
+      const carbonKg = Math.ceil(carneTotalKg * 1.5);
+      // Bebidas sin alcohol: 1 litro por persona
+      const gaseosaLitros = totalPersonas * 1;
+      // Bebidas con alcohol: 1.5 litros por adulto (cerveza/vino/fernet)
+      const alcoholLitros = adultos * 1.5;
+
+      let htmlResultado = `
+        <h3>📋 Cantidades Sugeridas</h3>
+        <div class="dato-destacado" style="color: #b94a00;">🥩 Carne (Asado/Vacío): ${carneTotalKg.toFixed(2)} kg</div>
+        <div class="dato-destacado" style="color: #b94a00;">🌭 Chorizos: ${chorizosTotales} unidades</div>
+        <div class="dato-destacado" style="color: #555;">🪵 Carbón necesario: ${carbonKg} kg</div>
+        <div class="dato-destacado" style="color: #0d6efd;">🥤 Gaseosas / Agua: ${gaseosaLitros.toFixed(1)} Litros</div>
+      `;
+
+      if (adultos > 0) {
+        htmlResultado += `<div class="dato-destacado" style="color: #721c24;">🍻 Cerveza / Vino / Fernet: ${alcoholLitros.toFixed(1)} Litros</div>`;
+      }
+
+      // 2. Cálculo de división de gastos si ingresaron costos extras
+      if (gastosExtras > 0) {
+        // En Argentina habitualmente los gastos se dividen entre los adultos que consumen
+        const personasQuePagan = adultos > 0 ? adultos : ninos; 
+        const costoPorCabeza = gastosExtras / personasQuePagan;
+
+        htmlResultado += `
+          <hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;">
+          <h3>💰 División de Gastos</h3>
+          <p>Monto total a dividir: $${gastosExtras.toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+          <div class="dato-destacado" style="color: #198754; text-align: center; font-size: 20px;">
+            Cada adulto pone: $${costoPorCabeza.toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          </div>
+          <p style="font-size: 12px; color: #666; text-align: center;">*Cálculo dividiendo el gasto total por los ${personasQuePagan} adultos del evento.</p>
+        `;
+      }
+
+      resultadoDiv.innerHTML = htmlResultado;
+      resultadoDiv.style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
