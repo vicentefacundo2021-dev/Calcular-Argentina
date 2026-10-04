@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Calculadora de Ganancia y Margen - Calcular Argentina</title>
+
+  <meta name="description" content="Calculá la ganancia, margen y rentabilidad de tus productos de forma rápida y gratuita.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f6f8;
+      color: #222;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      background: #ffffff;
+      padding: 25px 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 30px;
+      line-height: 1.1;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      color: #666;
+      font-size: 16px;
+    }
+
+    main {
+      max-width: 600px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .volver {
+      display: inline-block;
+      margin-bottom: 25px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .calculadora {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      border: 1px solid #e1e1e1;
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    .descripcion {
+      text-align: center;
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-top: 15px;
+      margin-bottom: 7px;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 22px;
+      border: none;
+      border-radius: 10px;
+      background: #222;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .resultado {
+      display: none;
+      margin-top: 25px;
+      padding: 20px;
+      background: #f5f6f8;
+      border-radius: 12px;
+    }
+
+    .resultado p {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    .resultado strong {
+      font-size: 18px;
+    }
+
+    .aclaracion {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #777;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #777;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <img src="descarga.jpeg" alt="Mascota Calcular Argentina" style="height: 55px; width: auto; border-radius: 8px;">
+
+    <div style="text-align: left;">
+      <h1>Calcular Argentina</h1>
+      <p>Calculadoras online gratis</p>
+    </div>
+  </header>
+
+  <main>
+
+    <a href="negocios.html" class="volver">← Volver a Negocios</a>
+
+    <div class="calculadora">
+
+      <h2>💰 Ganancia y margen</h2>
+
+      <p class="descripcion">
+        Calculá cuánto ganás con un producto y qué porcentaje de ganancia obtenés.
+      </p>
+
+      <label for="costo">Costo del producto ($)</label>
+      <input
+        type="number"
+        id="costo"
+        placeholder="Ej: 10000"
+        min="0"
+        step="0.01"
+      >
+
+      <label for="venta">Precio de venta ($)</label>
+      <input
+        type="number"
+        id="venta"
+        placeholder="Ej: 15000"
+        min="0"
+        step="0.01"
+      >
+
+      <button onclick="calcular()">Calcular ganancia</button>
+
+      <div class="resultado" id="resultado">
+
+        <p>
+          Ganancia:
+          <strong id="ganancia"></strong>
+        </p>
+
+        <p>
+          Margen sobre la venta:
+          <strong id="margen"></strong>
+        </p>
+
+        <p>
+          Rentabilidad sobre el costo:
+          <strong id="rentabilidad"></strong>
+        </p>
+
+      </div>
+
+      <p class="aclaracion">
+        La ganancia se calcula restando el costo al precio de venta.
+        El margen indica qué porcentaje del precio de venta representa la ganancia.
+        La rentabilidad indica cuánto ganás en relación con lo que invertiste.
+      </p>
+
+    </div>
+
+  </main>
+
+  <footer>
+    © 2026 Calcular Argentina
+  </footer>
+
+  <script>
+    function calcular() {
+
+      const costo = parseFloat(document.getElementById("costo").value);
+      const venta = parseFloat(document.getElementById("venta").value);
+
+      if (isNaN(costo) || isNaN(venta) || costo < 0 || venta < 0) {
+        alert("Completá correctamente el costo y el precio de venta.");
+        return;
+      }
+
+      if (costo === 0) {
+        alert("El costo debe ser mayor a 0.");
+        return;
+      }
+
+      const ganancia = venta - costo;
+
+      const margen = venta > 0
+        ? (ganancia / venta) * 100
+        : 0;
+
+      const rentabilidad = (ganancia / costo) * 100;
+
+      document.getElementById("ganancia").textContent =
+        "$ " + ganancia.toLocaleString("es-AR", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+
+      document.getElementById("margen").textContent =
+        margen.toFixed(2) + "%";
+
+      document.getElementById("rentabilidad").textContent =
+        rentabilidad.toFixed(2) + "%";
+
+      document.getElementById("resultado").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
