@@ -6,7 +6,7 @@
 
   <title>Negocios - Calcular Argentina</title>
 
-  <meta name="description" content="Calculadoras para negocios: ganancias, precios, mercadería, gastos y más.">
+  <meta name="description" content="Calculadoras para negocios: ganancias, precios de venta, mercadería, gastos y ventas.">
 
   <style>
     * {
@@ -82,7 +82,7 @@
       gap: 15px;
     }
 
-    .card {
+    .categoria {
       display: block;
       background: white;
       padding: 20px;
@@ -90,19 +90,25 @@
       text-decoration: none;
       color: #222;
       box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      transition: transform 0.15s;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
     }
 
-    .card:hover {
+    .categoria:hover {
       transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.10);
     }
 
-    .card h3 {
+    .categoria:active {
+      transform: scale(0.98);
+    }
+
+    .categoria h3 {
       margin: 0 0 8px;
       font-size: 19px;
     }
 
-    .card p {
+    .categoria p {
       margin: 0;
       color: #666;
       font-size: 14px;
@@ -139,50 +145,51 @@
     <div class="intro">
       <h2>💼 Herramientas para negocios</h2>
       <p>
-        Calculá ganancias, precios, gastos, mercadería y otros datos importantes para tu negocio.
+        Calculá ganancias, precios, gastos, mercadería
+        y analizá las ventas de tu negocio.
       </p>
     </div>
 
     <div class="grid">
 
-      <a class="card" href="ganancia.html">
+      <a class="categoria" href="ganancia.html">
         <h3>💰 Ganancia y margen</h3>
-        <p>Calculá cuánto ganás y cuál es tu margen de ganancia.</p>
+        <p>
+          Calculá cuánto ganás con cada producto,
+          el margen de ganancia y la rentabilidad.
+        </p>
       </a>
 
-      <a class="card" href="precio.html">
+      <a class="categoria" href="precio.html">
         <h3>🏷️ Precio de venta</h3>
-        <p>Calculá a qué precio vender según tu costo y ganancia deseada.</p>
+        <p>
+          Calculá a qué precio vender un producto
+          según el porcentaje de ganancia que querés obtener.
+        </p>
       </a>
 
-      <a class="card" href="mercaderia.html">
+      <a class="categoria" href="mercaderia.html">
         <h3>📦 Mercadería</h3>
-        <p>Registrá productos, cantidades, costos, ventas e inversión.</p>
+        <p>
+          Registrá productos, cantidades, costos,
+          precios de venta y ganancia potencial.
+        </p>
       </a>
 
-      <a class="card" href="gastos.html">
+      <a class="categoria" href="gastos.html">
         <h3>💸 Gastos del negocio</h3>
-        <p>Registrá tus gastos y calculá cuánto gastás en total.</p>
+        <p>
+          Registrá y sumá los gastos de tu negocio
+          para saber cuánto estás gastando.
+        </p>
       </a>
 
-      <a class="card" href="#">
-        <h3>📊 Punto de equilibrio</h3>
-        <p>Calculá cuánto necesitás vender para cubrir tus gastos.</p>
-      </a>
-
-      <a class="card" href="#">
+      <a class="categoria" href="ventas.html">
         <h3>📈 Ventas y ganancias</h3>
-        <p>Analizá tus ventas y ganancias del negocio.</p>
-      </a>
-
-      <a class="card" href="#">
-        <h3>🧾 IVA</h3>
-        <p>Calculá IVA incluido, IVA neto y otros valores.</p>
-      </a>
-
-      <a class="card" href="#">
-        <h3>💳 Comisiones</h3>
-        <p>Calculá comisiones de tarjetas, plataformas y ventas.</p>
+        <p>
+          Registrá tus ventas diarias y compará
+          cómo evolucionan de un día al otro.
+        </p>
       </a>
 
     </div>
