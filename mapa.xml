@@ -1,88 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://sitemaps.org">
 
+  <!-- Página principal -->
   <url>
-    <loc>https://calcularargentina.com</loc>
+    <loc>https://negociosycalculos.com</loc>
+  </url>
+
+  <!-- Categorías del menú principal -->
+  <url>
+    <loc>https://negociosycalculos.comporcentaje.html</loc>
   </url>
 
   <url>
-    <loc>https://calcularargentina.comporcentaje.html</loc>
+    <loc>https://negociosycalculos.comdinero.html</loc>
   </url>
 
   <url>
-    <loc>https://calcularargentina.comdinero.html</loc>
+    <loc>https://negociosycalculos.comnegocios.html</loc>
   </url>
 
   <url>
-    <loc>https://calcularargentina.comiva.html</loc>
+    <loc>https://negociosycalculos.comembarazo.html</loc>
   </url>
 
   <url>
-    <loc>https://calcularargentina.comaumentos.html</loc>
+    <loc>https://negociosycalculos.comsalud.html</loc>
   </url>
 
   <url>
-    <loc>https://calcularargentina.comcuotas.html</loc>
+    <loc>https://negociosycalculos.comauto.html</loc>
   </url>
 
   <url>
-    <loc>https://calcularargentina.comintereses.html</loc>
+    <loc>https://negociosycalculos.comhogar.html</loc>
   </url>
 
   <url>
-    <loc>https://calcularargentina.comnegocios.html</loc>
+    <loc>https://negociosycalculos.comeventos.html</loc>
   </url>
 
   <url>
-    <loc>https://calcularargentina.comganancia.html</loc>
+    <loc>https://negociosycalculos.comfechas.html</loc>
   </url>
 
   <url>
-    <loc>https://calcularargentina.comprecio.html</loc>
+    <loc>https://negociosycalculos.comconversiones.html</loc>
   </url>
 
   <url>
-    <loc>https://calcularargentina.commercaderia.html</loc>
-  </url>
-
-  <url>
-    <loc>https://calcularargentina.comgastos.html</loc>
-  </url>
-
-  <url>
-    <loc>https://calcularargentina.comventas.html</loc>
-  </url>
-
-  <url>
-    <loc>https://calcularargentina.comembarazo.html</loc>
-  </url>
-
-  <url>
-    <loc>https://calcularargentina.comsalud.html</loc>
-  </url>
-
-  <url>
-    <loc>https://calcularargentina.comauto.html</loc>
-  </url>
-
-  <url>
-    <loc>https://calcularargentina.comhogar.html</loc>
-  </url>
-
-  <url>
-    <loc>https://calcularargentina.comeventos.html</loc>
-  </url>
-
-  <url>
-    <loc>https://calcularargentina.comfechas.html</loc>
-  </url>
-
-  <url>
-    <loc>https://calcularargentina.comconversiones.html</loc>
-  </url>
-
-  <url>
-    <loc>https://calcularargentina.comconstruccion.html</loc>
+    <loc>https://negociosycalculos.comconstruccion.html</loc>
   </url>
 
 </urlset>
