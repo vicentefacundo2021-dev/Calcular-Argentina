@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <url>
-    <loc>https://negociosycalculos.com/</loc>
-  </url>
-
-  <url>
-    <loc>https://negociosycalculos.com/porcentaje.html</loc>
-  </url>
-
-  <url>
-    <loc>https://negociosycalculos.com/dinero.html</loc>
-  </url>
-
-  <url>
-    <loc>https://negociosycalculos.com/negocios.html</loc>
-  </url>
-
-  <url>
-    <loc>https://negociosycalculos.com/embarazo.html</loc>
-  </url>
-
-  <url>
-    <loc>https://negociosycalculos.com/salud.html</loc>
-  </url>
-
-  <url>
-    <loc>https://negociosycalculos.com/auto.html</loc>
-  </url>
-
-  <url>
-    <loc>https://negociosycal
+<url>
+<loc>https://negociosycalculos.com/</loc>
+</url>
+<url>
+<loc>https://negociosycalculos.com/porcentaje.html</loc>
+</url>
+<url>
+<loc>https://negociosycalculos.com/dinero.html</loc>
+</url>
+<url>
+<loc>https://negociosycalculos.com/negocios.html</loc>
+</url>
+<url>
+<loc>https://negociosycalculos.com/embarazo.html</loc>
+</url>
+<url>
+<loc>https://negociosycalculos.com/salud.html</loc>
+</url>
+<url>
+<loc>https://negociosycalculos.com/auto.html</loc>
+</url>
+<url>
+<loc>https://negociosycalculos.com/hogar.html</loc>
+</url>
+<url>
+<loc>https://negociosycalculos.com/eventos.html</loc>
+</url>
+<url>
+<loc>https://negociosycalculos.com/fechas.html</loc>
+</url>
+<url>
+<loc>https://negociosycalculos.com/conversiones.html</loc>
+</url>
+<url>
+<loc>https://negociosycalculos.com/construccion.html</loc>
+</url>
+</urlset>
